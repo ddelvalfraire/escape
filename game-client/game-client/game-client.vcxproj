@@ -183,6 +183,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerMovementSystem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="MovementStateComponent.h" />
+    <ClInclude Include="PlayerMovementSystem.h" />
+    <ClInclude Include="PositionComponent.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="VelocityComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
