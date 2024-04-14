@@ -2,7 +2,7 @@
 
 class Calculator {
 public:
-	int add(int a, int b) {
+	int addComponent(int a, int b) {
 		return a + b;
 	}
 };
@@ -13,7 +13,7 @@ TEST(newTest, someOtherTest) {
 
 TEST(CalculatorTest, addTest) {
 	Calculator c;
-	ASSERT_EQ(c.add(2, 2), 4);
+	ASSERT_EQ(c.addComponent(2, 2), 4);
 }
 
 int main(int argc, char** argv) {
