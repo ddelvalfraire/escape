@@ -15,12 +15,8 @@
  */
 class Entity 
 {
+	friend class EntityFactory;
 public:
-	/**
-	 * @brief Construct a new Entity object
-	 * 
-	 */
-	Entity() = default;
 
 	/**
 	 * @brief Destroy the Entity object
@@ -83,6 +79,13 @@ public:
 	}
 
 private:
+
+	/**
+	 * @brief Construct a new Entity object
+	 *
+	 */
+	Entity() = default;
+
 	std::unordered_map<const std::type_info*, Component*> mComponents;
 };
 

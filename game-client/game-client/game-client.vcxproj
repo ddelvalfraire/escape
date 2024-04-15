@@ -182,12 +182,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerMovementSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="MovementStateComponent.h" />
     <ClInclude Include="PlayerMovementSystem.h" />
     <ClInclude Include="PositionComponent.h" />

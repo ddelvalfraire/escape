@@ -12,6 +12,12 @@
     <ClCompile Include="..\game-client\PlayerMovementSystem.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="EntityFactory.test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game-client\EntityFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
