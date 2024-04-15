@@ -1,7 +1,4 @@
 #include "PlayerMovementSystem.h"
-#include "PositionComponent.h"
-#include "VelocityComponent.h"
-#include "MovementStateComponent.h"
 
 constexpr auto WALK_BACKWARD = "w_backwards";
 constexpr auto WALK_FORWARD = "w_forward";

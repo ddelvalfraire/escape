@@ -1,9 +1,6 @@
 #include <SFML/System.hpp>
 
 #include "EntityFactory.h"
-#include "PositionComponent.h"
-#include "VelocityComponent.h"
-#include "MovementStateComponent.h"
 
 const sf::Vector2f PLAYER_SPAWN_VEC2 = { 0.0f, 0.0f };
 const sf::Vector2f DEFAULT_VELOCITY = { 0.0f, 0.0f };

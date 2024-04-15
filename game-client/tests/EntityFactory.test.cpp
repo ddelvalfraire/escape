@@ -1,9 +1,6 @@
 #include "pch.h"
 
 #include "../game-client/EntityFactory.h"
-#include "../game-client/PositionComponent.h"
-#include "../game-client/MovementStateComponent.h"
-#include "../game-client/VelocityComponent.h"
 
 class EntityFactoryTest : public ::testing::Test
 {

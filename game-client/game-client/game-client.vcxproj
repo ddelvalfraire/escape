@@ -187,18 +187,17 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerMovementSystem.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="TypeMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="MovementStateComponent.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="PlayerMovementSystem.h" />
-    <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="System.h" />
-    <ClInclude Include="VelocityComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

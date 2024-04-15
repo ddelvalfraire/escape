@@ -1,11 +1,7 @@
 #include "pch.h"
 
-#include "../game-client/Entity.h"
 #include "../game-client/EntityFactory.h"
-#include "../game-client/PositionComponent.h"
-#include "../game-client/VelocityComponent.h"
 #include "../game-client/PlayerMovementSystem.h"
-#include "../game-client/MovementStateComponent.h"
 
 struct PlayerData
 {
