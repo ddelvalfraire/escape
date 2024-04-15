@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "../game-client/Entity.h"
+#include "../game-client/EntityFactory.h"
 #include "../game-client/PositionComponent.h"
 #include "../game-client/VelocityComponent.h"
 #include "../game-client/PlayerMovementSystem.h"
@@ -38,21 +39,30 @@ sf::Event createEvent(sf::Keyboard::Key key)
 	return e;
 }
 
+Entity* getTestPlayer()
+{
+	EntityFactory& entityFactory = EntityFactory::getInstance();
+	return entityFactory.createPlayer();
+}
 
 class PlayerMovementSystemTest : public ::testing::Test
 {
 public:
 	PlayerMovementSystemTest()
-		: window(sf::VideoMode(720, 1280), "PlayerMovementSystemTest"), system(window, player)
+		: window(sf::VideoMode(720, 1280), "PlayerMovementSystemTest"), player(getTestPlayer()), system(nullptr)
 	{
-		player.addComponent<PositionComponent>(0.0f, 0.0f);
-		player.addComponent<VelocityComponent>(0.0f, 0.0f);
-		player.addComponent<MovementStateComponent>();
+		system = new PlayerMovementSystem(window, *player);
+	}
+
+	void TearDown() override
+	{
+		delete system;
+		delete player;
 	}
 
 	sf::RenderWindow window;
-	PlayerMovementSystem system;
-	Entity player;
+	PlayerMovementSystem* system;
+	Entity* player;
 	
 
 };
@@ -64,9 +74,9 @@ TEST_F(PlayerMovementSystemTest, walkForwardTest)
 	// update with known value
 	sf::Event event = createEvent(sf::Keyboard::D);
 
-	system._update(event,1.0f);
+	system->_update(event,1.0f);
 
-	PlayerData data = getPlayerData(player);
+	PlayerData data = getPlayerData(*player);
 
 	EXPECT_FLOAT_EQ(data.position.x, MOVE_SPEED);
 	EXPECT_FLOAT_EQ(data.velocity.x, MOVE_SPEED);
@@ -75,9 +85,9 @@ TEST_F(PlayerMovementSystemTest, walkForwardTest)
 TEST_F(PlayerMovementSystemTest, walkBackwardTest)
 {
 	sf::Event event = createEvent(sf::Keyboard::A);
-	system._update(event, 1.0f);
+	system->_update(event, 1.0f);
 
-	PlayerData data = getPlayerData(player);
+	PlayerData data = getPlayerData(*player);
 
 	EXPECT_FLOAT_EQ(data.position.x, -MOVE_SPEED);
 	EXPECT_FLOAT_EQ(data.velocity.x, -MOVE_SPEED);
@@ -85,11 +95,11 @@ TEST_F(PlayerMovementSystemTest, walkBackwardTest)
 
 TEST_F(PlayerMovementSystemTest, jumpTest)
 {
-	 sf::Event event = createEvent(sf::Keyboard::W);
+	sf::Event event = createEvent(sf::Keyboard::W);
 
-	system._update(event, 1.0f);
+	system->_update(event, 1.0f);
 
-	PlayerData data = getPlayerData(player);
+	PlayerData data = getPlayerData(*player);
 
 	EXPECT_LT(data.velocity.y, 0.0F);
 	EXPECT_TRUE(data.moveState.isJumping);
