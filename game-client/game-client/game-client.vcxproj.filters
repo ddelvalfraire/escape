@@ -33,6 +33,9 @@
     <ClCompile Include="TypeMap.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="LeverPuzzle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -57,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LeverPuzzle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

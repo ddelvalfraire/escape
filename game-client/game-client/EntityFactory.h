@@ -10,6 +10,7 @@ class EntityFactory
 public:
 	static EntityFactory& getInstance();
 	Entity* createPlayer();
+	Entity* createLever(sf::Vector2f& leverSpawn);
 
 private:
 	EntityFactory() = default;

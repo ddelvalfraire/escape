@@ -18,6 +18,12 @@
     <ClCompile Include="..\game-client\EntityFactory.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\game-client\LeverPuzzle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="LeverPuzzle.test.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
