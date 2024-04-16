@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Item.h"
 #include "TypeMap.h"
@@ -59,6 +60,29 @@ struct VelocityComponent : public sf::Vector2f, Component
 	VelocityComponent(float x = 0.0f, float y = 0.0f) : sf::Vector2f(x, y) {}
 	VelocityComponent(sf::Vector2f& vec) : sf::Vector2f(vec) {}
 	VelocityComponent(const sf::Vector2f& vec) : sf::Vector2f(vec) {}
+};
+
+/**
+ * @brief represents the state of a lever
+ *
+ */
+struct LeverStateComponent : Component
+{
+	LeverStateComponent(bool isOn) : isOn(isOn) {}
+	bool isOn;
+};
+
+/**
+ * @brief stores the sprite and animation data of an entity
+ *
+ */
+struct GraphicComponent : Component
+{
+	std::vector<sf::IntRect> frames;
+	sf::Texture& spriteTexture;
+	sf::Sprite sprite;
+
+
 };
 
 

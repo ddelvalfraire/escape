@@ -33,3 +33,13 @@ Entity* EntityFactory::createPlayer()
 
     return player;
 }
+
+Entity* EntityFactory::createLever(sf::Vector2f &leverSpawn)
+{
+    auto lever = new Entity();
+
+    lever->addComponent<LeverStateComponent>(false); // false is off
+    lever->addComponent<PositionComponent>(leverSpawn); // TODO: decide where levers go in levels
+
+    return lever;
+}

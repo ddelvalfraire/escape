@@ -184,6 +184,7 @@
   <ItemGroup>
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LeverPuzzle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerMovementSystem.cpp" />
     <ClCompile Include="Program.cpp" />
@@ -195,8 +196,10 @@
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="LeverPuzzle.h" />
     <ClInclude Include="PlayerMovementSystem.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="Puzzle.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
