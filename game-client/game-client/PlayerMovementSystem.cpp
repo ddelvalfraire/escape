@@ -23,7 +23,7 @@ PlayerMovementSystem::PlayerMovementSystem(sf::RenderWindow& window, Entity& pla
  * 
  * @param dt delta time
  */
-void PlayerMovementSystem::_update(float dt)
+void PlayerMovementSystem::update(float dt)
 {
 
 	mActions.update(mWindow);

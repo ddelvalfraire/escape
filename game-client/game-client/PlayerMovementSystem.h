@@ -15,7 +15,7 @@ class PlayerMovementSystem : protected System
 {
 public:
 	PlayerMovementSystem(sf::RenderWindow& window, Entity& player);
-	void _update(float dt) override;
+	void update(float dt) override;
 	void _update(sf::Event event, float dt);
 
 private:

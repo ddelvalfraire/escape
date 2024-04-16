@@ -1,10 +1,17 @@
 #include <SFML/Graphics.hpp>
 
 #include "Program.h"
-#include "TextureManager.h"
+#include "FrameConstants.h"
 
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
+Program::Program() mGame(entities)
+
+void Program::initResources()
+{
+	mGraphicsResourceManager.loadTexture(PLAYER_IDLE);
+	mGraphicsResourceManager.storeFrames(PLAYER_IDLE, PLAYER_IDLE_FRAMES);
+}
 
 /**
  * @brief Program entry point
@@ -12,6 +19,7 @@ constexpr int WINDOW_HEIGHT = 720;
  */
 void Program::run()
 {
+	initResources();
 
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Escape");
 	sf::Clock clock;
@@ -32,12 +40,8 @@ void Program::run()
 			}
 		}
 		// logic updates with dt go here
-
-
-		mGame.update(dt); 
 	
 		//sprite drawing goes here
-
 		window.display();
 	}
 }

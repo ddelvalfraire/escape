@@ -2,6 +2,8 @@
 #define PROGRAM_H
 
 #include "Game.h"
+#include "Entity.h"
+#include "GraphicsResourceManager.h"
 
 class Program
 {
@@ -11,9 +13,10 @@ public:
 
 	void run();
 
-
 private:
+	void initResources();
 	// TODO add global resources here
-	Game mGame;
+	std::vector<Entity*> mEntities;
+	GraphicsResourceManager mGraphicsResourceManager;
 };
 #endif // !PROGRAM_H
