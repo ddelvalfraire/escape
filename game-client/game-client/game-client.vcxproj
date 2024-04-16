@@ -188,6 +188,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerMovementSystem.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TypeMap.h" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +202,12 @@
     <ClInclude Include="Program.h" />
     <ClInclude Include="Puzzle.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="TextureManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Idle.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</ExcludedFromBuild>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,15 @@
 #include <SFML/Graphics.hpp>
 
 #include "Program.h"
+#include "TextureManager.h"
 
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
 
+/**
+ * @brief Program entry point
+ * 
+ */
 void Program::run()
 {
 
@@ -30,9 +35,7 @@ void Program::run()
 
 
 		mGame.update(dt); 
-
-		window.clear();
-
+	
 		//sprite drawing goes here
 
 		window.display();

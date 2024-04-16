@@ -148,6 +148,9 @@
     <ClCompile Include="..\game-client\PlayerMovementSystem.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\game-client\TextureManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Entity.test.cpp" />
     <ClCompile Include="EntityFactory.test.cpp" />
     <ClCompile Include="LeverPuzzle.test.cpp" />
