@@ -21,23 +21,53 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMovementSystem.cpp">
+    <ClCompile Include="Program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Program.cpp">
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PlayerMovementSystem.h">
+    <ClInclude Include="Program.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Program.h">
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Idle.png">
+      <Filter>Resource Files\Test Character</Filter>
+    </Image>
+    <Image Include="Double_Jump.png">
+      <Filter>Resource Files\Test Character</Filter>
+    </Image>
+    <Image Include="Fall.png">
+      <Filter>Resource Files\Test Character</Filter>
+    </Image>
+    <Image Include="Hit.png">
+      <Filter>Resource Files\Test Character</Filter>
+    </Image>
+    <Image Include="Jump.png">
+      <Filter>Resource Files\Test Character</Filter>
+    </Image>
+    <Image Include="Run.png">
+      <Filter>Resource Files\Test Character</Filter>
+    </Image>
+    <Image Include="Wall_Jump.png">
       <Filter>Resource Files\Test Character</Filter>
     </Image>
   </ItemGroup>
