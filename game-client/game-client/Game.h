@@ -12,12 +12,11 @@ public:
 	void run();
 
 private:
-	void initializePhysicsWorld();
 	std::vector<Entity*> setUpLevel();
-	void pollEvents(Entity* player);
-	void handleKeyboardInput(Entity* player);
+	void pollEvents();
 
 	b2World mWorld;
 	sf::RenderWindow& mWindow;
+	TextureManager& mTextureManager;
 };
 #endif // !GAME_H
