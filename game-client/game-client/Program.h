@@ -1,19 +1,14 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
-#include "Game.h"
+#include "TextureManager.h"
 
 class Program
 {
 public:
-	Program() = default;
-	~Program() = default;
-
 	void run();
 
-
 private:
-	// TODO add global resources here
-	Game mGame;
+	TextureManager mTexManager;
 };
 #endif // !PROGRAM_H

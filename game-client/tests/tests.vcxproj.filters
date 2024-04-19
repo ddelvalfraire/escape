@@ -3,40 +3,19 @@
   <ItemGroup>
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Entity.test.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMovementSystem.test.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game-client\PlayerMovementSystem.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityFactory.test.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game-client\EntityFactory.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game-client\LeverPuzzle.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="LeverPuzzle.test.cpp">
-      <Filter>tests</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="tests">
-      <UniqueIdentifier>{a3ff9a0a-537b-4772-8f98-2676b22017cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
+    <Filter Include="Source Files">
       <UniqueIdentifier>{908ebdb5-83b7-47d5-9c16-8ba91c161808}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unit Test">
+      <UniqueIdentifier>{a3ff9a0a-537b-4772-8f98-2676b22017cf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
