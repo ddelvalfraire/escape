@@ -2,8 +2,8 @@
 
 #include "Player.h"
 
-constexpr auto MOVE_SPEED = 2.0f;
-constexpr auto JUMP_FORCE = 4.0f;
+constexpr auto MOVE_SPEED = 3.0f;
+constexpr auto JUMP_FORCE = 5.0f;
 constexpr auto ACCELERATION = 0.5f;
 constexpr auto DECELERATION = 0.5f;
 constexpr auto LADDER_SPEED = 3.0f;

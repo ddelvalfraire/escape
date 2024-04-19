@@ -7,15 +7,6 @@
 #include "Entity.h"
 #include "TextureManager.h"
 
-
-enum class AnimationPriority
-{
-	Default = 0,
-	Low,
-	Medium,
-	High
-};
-
 struct AnimationData
 {
 	sf::Texture& texture;

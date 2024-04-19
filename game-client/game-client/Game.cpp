@@ -1,8 +1,9 @@
 #include "Game.h"
 #include "Player.h"
+#include "Background.h"
 
 
-const b2Vec2 GRAVITY_RATE( 0.0f, 2.0f );
+const b2Vec2 GRAVITY_RATE( 0.0f, 3.0f );
 
 /**
  * @brief Construct a new Game:: Game object
@@ -66,6 +67,8 @@ void Game::run()
 	std::vector<Entity*> entities = setUpLevel();
 
 	Player* player = static_cast<Player*>(entities[0]);
+	Background background(mWindow, mTextureManager);
+	
 
 	sf::Clock clock;
 	while (mWindow.isOpen())
@@ -83,9 +86,13 @@ void Game::run()
 		}
 
 		player->update(dt); // updates need to happen after interactions
+		background.update(dt);
 
-		mWindow.clear(sf::Color::White);
-		
+		mWindow.clear();
+
+		for (auto& sprite : background.getSprites())
+			mWindow.draw(*sprite);
+
 		for (auto entity : entities)
 			mWindow.draw(*entity->sprite());
 		
