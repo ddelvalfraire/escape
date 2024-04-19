@@ -36,6 +36,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -75,6 +81,30 @@
     </Image>
     <Image Include="Wall_Jump.png">
       <Filter>Resource Files\Test Character</Filter>
+    </Image>
+    <Image Include="clouds_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="clouds_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ground_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ground_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ground_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="rocks.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sky.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="plant.png">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
 </Project>

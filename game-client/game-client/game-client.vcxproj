@@ -182,6 +182,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
@@ -197,14 +199,22 @@
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="clouds_1.png" />
+    <Image Include="clouds_2.png" />
     <Image Include="Double_Jump.png" />
     <Image Include="Fall.png" />
+    <Image Include="ground_1.png" />
+    <Image Include="ground_2.png" />
+    <Image Include="ground_3.png" />
     <Image Include="Hit.png" />
     <Image Include="Idle.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</ExcludedFromBuild>
     </Image>
     <Image Include="Jump.png" />
+    <Image Include="plant.png" />
+    <Image Include="rocks.png" />
     <Image Include="Run.png" />
+    <Image Include="sky.png" />
     <Image Include="Wall_Jump.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
