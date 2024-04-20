@@ -217,7 +217,22 @@
     <Image Include="rocks.png" />
     <Image Include="Run.png" />
     <Image Include="sky.png" />
+    <Image Include="Tiled\Backgrounds\1.png" />
+    <Image Include="Tiled\Backgrounds\2.png" />
+    <Image Include="Tiled\Backgrounds\3.png" />
+    <Image Include="Tiled\Backgrounds\4.png" />
+    <Image Include="Tiled\Backgrounds\5.png" />
+    <Image Include="Tiled\Backgrounds\6.png" />
+    <Image Include="Tiled\GUI.png" />
+    <Image Include="Tiled\Tileset.png" />
     <Image Include="Wall_Jump.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tiled\1.tmx" />
+    <None Include="Tiled\2.tmx" />
+    <None Include="Tiled\3.tmx" />
+    <None Include="Tiled\4.tmx" />
+    <None Include="Tiled\Tileset.tsx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

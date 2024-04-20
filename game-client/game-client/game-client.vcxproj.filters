@@ -16,6 +16,12 @@
     <Filter Include="Resource Files\Test Character">
       <UniqueIdentifier>{c609a67b-9847-42f1-b52f-e7036a51be51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Tiled">
+      <UniqueIdentifier>{cfea1e25-093d-4851-8b4f-478244b23902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Background">
+      <UniqueIdentifier>{b2d23148-cc16-4998-8fdb-96629074fe3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -89,28 +95,69 @@
       <Filter>Resource Files\Test Character</Filter>
     </Image>
     <Image Include="clouds_1.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Background</Filter>
     </Image>
     <Image Include="clouds_2.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Background</Filter>
     </Image>
     <Image Include="ground_1.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Background</Filter>
     </Image>
     <Image Include="ground_2.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Background</Filter>
     </Image>
     <Image Include="ground_3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="rocks.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="sky.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Background</Filter>
     </Image>
     <Image Include="plant.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Background</Filter>
     </Image>
+    <Image Include="rocks.png">
+      <Filter>Resource Files\Background</Filter>
+    </Image>
+    <Image Include="sky.png">
+      <Filter>Resource Files\Background</Filter>
+    </Image>
+    <Image Include="Tiled\Backgrounds\1.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Tiled\Backgrounds\2.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Tiled\Backgrounds\3.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Tiled\Backgrounds\4.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Tiled\Backgrounds\5.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Tiled\Backgrounds\6.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Tiled\GUI.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Tiled\Tileset.png">
+      <Filter>Resource Files\Tiled</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tiled\1.tmx">
+      <Filter>Resource Files\Tiled</Filter>
+    </None>
+    <None Include="Tiled\2.tmx">
+      <Filter>Resource Files\Tiled</Filter>
+    </None>
+    <None Include="Tiled\3.tmx">
+      <Filter>Resource Files\Tiled</Filter>
+    </None>
+    <None Include="Tiled\4.tmx">
+      <Filter>Resource Files\Tiled</Filter>
+    </None>
+    <None Include="Tiled\Tileset.tsx">
+      <Filter>Resource Files\Tiled</Filter>
+    </None>
   </ItemGroup>
 </Project>

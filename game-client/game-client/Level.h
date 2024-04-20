@@ -9,12 +9,13 @@
 
 #include "TextureManager.h"
 
-using TileMap = std::unordered_map < uint32_t, std::pair<sf::IntRect*, sf::Texture*>>;
+using TileMap = std::unordered_map <uint32_t, std::pair<sf::IntRect*, sf::Texture*>>;
 
 class Level
 {
-	Level(const std::string &tmxFile, TextureManager &textureManager, sf::RenderWindow &window);
-	~Level();
+public:
+	Level(const std::string &tmxFile, sf::RenderWindow &window);
+	~Level() = default;
 
 	const std::vector<sf::Sprite*>& sprites();
 	
@@ -26,10 +27,11 @@ private:
 	const float calculateScalar(const tmx::Map& map);
 	sf::IntRect* getTileTextureRect(const tmx::Vector2u& position, const tmx::Vector2u& size);
 
+
 	std::string mTmxFile;
 	TileMap mTileMap;
 	std::vector<sf::Sprite*> mSprites;
-	TextureManager& mTextureManager;
+	TextureManager mTextureManager;
 	sf::RenderWindow& mWindow;
 };
 

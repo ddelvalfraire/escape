@@ -13,6 +13,7 @@ public:
 
 private:
 	std::vector<Entity*> setUpLevel();
+	void createWorldBoundaries(std::vector<Entity*> &entities);
 	void pollEvents();
 
 	b2World mWorld;

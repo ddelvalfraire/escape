@@ -8,6 +8,8 @@
 class TextureManager
 {
 public:
+	TextureManager() = default;
+	~TextureManager();
 	sf::Texture* loadTexture(const std::string& fileName);
 	sf::Texture* getTexture(const std::string& fileName);
 	bool hasTexture(const std::string& fileName);

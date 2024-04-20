@@ -1,9 +1,9 @@
 #include "Game.h"
 #include "Player.h"
 #include "Background.h"
+#include "Level.h"
 
-
-const b2Vec2 GRAVITY_RATE( 0.0f, 3.0f );
+const b2Vec2 GRAVITY_RATE( 0.0f, 25.0f );
 
 /**
  * @brief Construct a new Game:: Game object
@@ -15,6 +15,19 @@ Game::Game(sf::RenderWindow& window, TextureManager& textureManager)
 	:mWindow(window), mWorld(GRAVITY_RATE), mTextureManager(textureManager) {}
 
 
+void Game::createWorldBoundaries(std::vector<Entity*> &entities)
+{
+
+	const float WINDOW_WIDTH = mWindow.getSize().x;
+	const float WINDOW_HEIGHT = mWindow.getSize().y;
+
+	auto top = new Entity({ {WINDOW_WIDTH / 2, -10}, {WINDOW_WIDTH, 20} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Top wall
+	auto left = new Entity({ {-10, WINDOW_HEIGHT / 2 }, {20, WINDOW_HEIGHT} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Left wall
+	auto right = new Entity({ {WINDOW_WIDTH + 10, WINDOW_HEIGHT / 2}, {20, WINDOW_HEIGHT} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Right wall
+	auto ground = new Entity({ {WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10}, {WINDOW_WIDTH, 20} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Green);   // Ground
+
+}
+
 /**
  * @brief Creates physics boundaries and loads their sprites
  * 
@@ -22,23 +35,17 @@ Game::Game(sf::RenderWindow& window, TextureManager& textureManager)
  */
 std::vector<Entity*> Game::setUpLevel()
 {
-	
-	const float WINDOW_WIDTH = mWindow.getSize().x;
-	const float WINDOW_HEIGHT = mWindow.getSize().y;
-
-	auto top = new Entity({ {WINDOW_WIDTH / 2, -10}, {WINDOW_WIDTH, 20} }, mWorld, b2_staticBody,false, nullptr, sf::Color::Black);   // Top wall
-	auto left = new Entity({ {-10, WINDOW_HEIGHT / 2 }, {20, WINDOW_HEIGHT} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Left wall
-	auto right = new Entity({ {WINDOW_WIDTH + 10, WINDOW_HEIGHT / 2}, {20, WINDOW_HEIGHT} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Right wall
-	auto ground = new Entity({ {WINDOW_WIDTH/ 2, WINDOW_HEIGHT - 10}, {WINDOW_WIDTH, 20} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Green);   // Ground
-
-
-	// level setup below
-	// TODO: setup with lua files
 	auto platform = new Entity({ {400, 500}, {200, 20} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Green); // platform
-	auto player = new Player({400.0f, 100.0f}, mTextureManager, mWorld);
+	auto player = new Player({ 400.0f, 100.0f }, mTextureManager, mWorld);
 
-	return { player, top, left, right, ground, platform};
+	std::vector<Entity*> entities = { player, platform };
+
+	createWorldBoundaries(entities);
+
+	return entities;
 }
+
+
 
 /**
  * @brief Polls for window events
@@ -68,7 +75,7 @@ void Game::run()
 
 	Player* player = static_cast<Player*>(entities[0]);
 	Background background(mWindow, mTextureManager);
-	
+	Level level("tiled/1.tmx", mWindow);
 
 	sf::Clock clock;
 	while (mWindow.isOpen())
@@ -93,8 +100,13 @@ void Game::run()
 		for (auto& sprite : background.getSprites())
 			mWindow.draw(*sprite);
 
+		for (auto& sprite : level.sprites())
+			mWindow.draw(*sprite);
+
 		for (auto entity : entities)
 			mWindow.draw(*entity->sprite());
+
+		
 		
 		mWindow.display();
 	}

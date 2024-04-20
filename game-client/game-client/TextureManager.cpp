@@ -1,6 +1,16 @@
 #include "TextureManager.h"
 
 /**
+ * @brief deletes all of the allocated textures in the texture map
+ *
+ */
+TextureManager::~TextureManager()
+{
+	for (auto& pair : mTextures)
+		delete pair.second;
+}
+
+/**
  * @brief Loads a texture from a file
  *
  * @param fileName filepath of your texture

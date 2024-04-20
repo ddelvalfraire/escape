@@ -1,11 +1,11 @@
 #include "Level.h"
 
-Level::Level(const std::string& tmxFile, TextureManager& textureManager, sf::RenderWindow& window)
-	: mTmxFile(tmxFile), mTextureManager(textureManager), mWindow(window) {}
-
-Level::~Level()
+Level::Level(const std::string& tmxFile, sf::RenderWindow& window)
+	: mTmxFile(tmxFile), mWindow(window) 
 {
+	loadTmxMap();
 }
+
 
 const std::vector<sf::Sprite*>& Level::sprites()
 {
@@ -47,30 +47,32 @@ void Level::parseTilesets(const tmx::Map &map)
 
 void Level::parseLayers(const tmx::Map &map)
 {
-	
-	for (const auto& layer : map.getLayers())
+	const auto& layers = map.getLayers();
+	for (int i = 1; i < 3; i++)
 	{
+		const auto& layer = layers[i];
+
 		if (layer->getType() != tmx::Layer::Type::Tile)
 			continue;
-		
-		const auto& tileLayer = layer->getLayerAs<tmx::TileLayer>();
-		const auto& tiles = tileLayer.getTiles();
-		
 
-		size_t tileNumber = 0;
-		for (const auto& tile : tiles)
+		const auto& tileLayer = layer->getLayerAs<tmx::TileLayer>();
+		const std::vector<tmx::TileLayer::Tile>& tiles = tileLayer.getTiles();
+
+		// for of loop does not work here for some reason
+		for (size_t tileNumber = 0; tileNumber < tiles.size(); ++tileNumber) 
 		{
+			const tmx::TileLayer::Tile& tile = tiles[tileNumber];
+
 			if (tile.ID == 0)
 				continue;
 
-			auto& pair = mTileMap.at(tile.ID);
-
+			const auto& pair = mTileMap.at(tile.ID);
 			auto sprite = new sf::Sprite(*pair.second, *pair.first);
 
 			const float scalar = calculateScalar(map);
 			sprite->setScale(scalar, scalar);
 
-			sf::Vector2f position = extrapolateTilePosition(map, tileLayer, tileNumber, scalar);
+			const sf::Vector2f position = extrapolateTilePosition(map, tileLayer, tileNumber, scalar);
 			sprite->setPosition(position);
 
 			mSprites.push_back(sprite);
@@ -78,15 +80,15 @@ void Level::parseLayers(const tmx::Map &map)
 	}
 }
 
-sf::Vector2f Level::extrapolateTilePosition(const tmx::Map& map, const tmx::TileLayer &currentLayer, const size_t tileNumber, const float scalar)
+sf::Vector2f Level::extrapolateTilePosition(const tmx::Map& map, const tmx::TileLayer &currentLayer, const size_t currentTileNumber, const float scalar)
 {
 	const tmx::Vector2u& numTiles = map.getTileCount();
 	const tmx::Vector2u& tileSize = map.getTileSize();
 	
 	const tmx::Vector2i& layerOffset = currentLayer.getOffset();
 
-	const float row = (tileNumber % numTiles.x) * tileSize.x * scalar - layerOffset.x * scalar;
-	const float col = (tileNumber / numTiles.x) * tileSize.y * scalar - layerOffset.y * scalar;
+	const auto row = (currentTileNumber % numTiles.x) * tileSize.x * scalar - layerOffset.x * scalar;
+	const auto col = (currentTileNumber / numTiles.x) * tileSize.y * scalar - layerOffset.y * scalar;
 
 	return sf::Vector2f(row, col);
 }
@@ -110,6 +112,5 @@ sf::IntRect* Level::getTileTextureRect(const tmx::Vector2u& position, const tmx:
 	const auto sizeY = static_cast<int>(size.y);
 
 	return new sf::IntRect(posX, posY, sizeX, sizeY);
-
 	
 }
