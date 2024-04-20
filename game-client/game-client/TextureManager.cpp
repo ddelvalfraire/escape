@@ -5,15 +5,15 @@
  *
  * @param fileName filepath of your texture
  */
-void TextureManager::loadTexture(const std::string &fileName)
+sf::Texture* TextureManager::loadTexture(const std::string &fileName)
 {
 	auto tex = new sf::Texture;
 	mTextures.emplace(fileName, tex);
 
 	if (!tex->loadFromFile(fileName))
-	{
 		throw std::runtime_error("Texture file does not exist");
-	}
+	
+	return tex;
 }
 
 /**
@@ -24,14 +24,15 @@ void TextureManager::loadTexture(const std::string &fileName)
  */
 sf::Texture* TextureManager::getTexture(const std::string& fileName)
 {
-	auto it = mTextures.find(fileName);
-
-	if (it != mTextures.end())
-	{
-		return it->second;
-	}
+	if (hasTexture(fileName))
+		return mTextures.at(fileName);
 
 	throw std::runtime_error("Attempting to fetch a non exisitant texture");
+}
+
+bool TextureManager::hasTexture(const std::string& fileName)
+{
+	return mTextures.find(fileName) != mTextures.end();
 }
 
 /**
@@ -41,5 +42,6 @@ sf::Texture* TextureManager::getTexture(const std::string& fileName)
  */
 void TextureManager::deleteTexture(const std::string& fileName)
 {
-	mTextures.erase(fileName);
+	if (hasTexture(fileName))
+		mTextures.erase(fileName);
 }

@@ -8,8 +8,9 @@
 class TextureManager
 {
 public:
-	void loadTexture(const std::string& fileName);
+	sf::Texture* loadTexture(const std::string& fileName);
 	sf::Texture* getTexture(const std::string& fileName);
+	bool hasTexture(const std::string& fileName);
 	void deleteTexture(const std::string& fileName);
 private:
 	std::unordered_map<std::string, sf::Texture*> mTextures;
