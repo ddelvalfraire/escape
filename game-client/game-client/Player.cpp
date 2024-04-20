@@ -2,15 +2,15 @@
 
 #include "Player.h"
 
-constexpr auto MOVE_SPEED = 3.0f;
-constexpr auto JUMP_FORCE = 5.0f;
-constexpr auto ACCELERATION = 0.5f;
-constexpr auto DECELERATION = 0.5f;
+constexpr auto MOVE_SPEED = 8.0f;
+constexpr auto JUMP_FORCE = 15.0f;
+constexpr auto ACCELERATION = 1.f;
+constexpr auto DECELERATION = 1.f;
 constexpr auto LADDER_SPEED = 3.0f;
 constexpr auto INTERACTION_RANGE = 50.0f;
 
 
-constexpr auto SCALAR = 5.0F;
+constexpr auto SCALAR = 3.5F;
 constexpr auto FALL = "Fall.png";
 constexpr auto IDLE = "Idle.png";
 constexpr auto RUN = "Run.png";
