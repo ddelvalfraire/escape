@@ -22,6 +22,9 @@
     <Filter Include="Resource Files\Background">
       <UniqueIdentifier>{b2d23148-cc16-4998-8fdb-96629074fe3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Entities">
+      <UniqueIdentifier>{8b6b9b27-5e84-4d56-9a4c-1d5a619a8bbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -141,6 +144,30 @@
     </Image>
     <Image Include="Tiled\Tileset.png">
       <Filter>Resource Files\Tiled</Filter>
+    </Image>
+    <Image Include="Entities\chest_closed.png">
+      <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\chest_opened.png">
+      <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\door1.png">
+      <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\door2.png">
+      <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\door3.png">
+      <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\door4.png">
+      <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\lever1.png">
+      <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\lever2.png">
+      <Filter>Resource Files\Entities</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

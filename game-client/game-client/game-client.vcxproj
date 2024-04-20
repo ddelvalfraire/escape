@@ -204,6 +204,14 @@
     <Image Include="clouds_1.png" />
     <Image Include="clouds_2.png" />
     <Image Include="Double_Jump.png" />
+    <Image Include="Entities\chest_closed.png" />
+    <Image Include="Entities\chest_opened.png" />
+    <Image Include="Entities\door1.png" />
+    <Image Include="Entities\door2.png" />
+    <Image Include="Entities\door3.png" />
+    <Image Include="Entities\door4.png" />
+    <Image Include="Entities\lever1.png" />
+    <Image Include="Entities\lever2.png" />
     <Image Include="Fall.png" />
     <Image Include="ground_1.png" />
     <Image Include="ground_2.png" />
