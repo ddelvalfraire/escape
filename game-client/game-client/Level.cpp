@@ -1,17 +1,31 @@
 #include "Level.h"
 
+/**
+ * @brief Construct a new Level:: Level object
+ * 
+ * @param tmxFile filepath to load 
+ * @param window 
+ */
 Level::Level(const std::string& tmxFile, sf::RenderWindow& window)
 	: mTmxFile(tmxFile), mWindow(window) 
 {
 	loadTmxMap();
 }
 
-
+/**
+ * @brief sprite getter for the level
+ * 
+ * @return const std::vector<sf::Sprite*>& 
+ */
 const std::vector<sf::Sprite*>& Level::sprites()
 {
 	return mSprites;
 }
 
+/**
+ * @brief routine for tmx file loading based on mTmxFile
+ * 
+ */
 void Level::loadTmxMap()
 {
 	tmx::Map map;
@@ -22,6 +36,11 @@ void Level::loadTmxMap()
 	parseLayers(map);
 }
 
+/**
+ * @brief Iterates through a tilesets and creates their textures and text rects
+ * 
+ * @param map tmxMap to parse from
+ */
 void Level::parseTilesets(const tmx::Map &map)
 {
 	uint32_t tileCount = 1;
@@ -45,6 +64,11 @@ void Level::parseTilesets(const tmx::Map &map)
 	}
 }
 
+/**
+ * @brief Parses the layers of a tmx file and creates their sprites and entities
+ * 
+ * @param map 
+ */
 void Level::parseLayers(const tmx::Map &map)
 {
 	const auto& layers = map.getLayers();
@@ -80,6 +104,15 @@ void Level::parseLayers(const tmx::Map &map)
 	}
 }
 
+/**
+ * @brief calculates the x y coordinates of a tile based on window and map size
+ * 
+ * @param map 
+ * @param currentLayer 
+ * @param currentTileNumber 
+ * @param scalar 
+ * @return sf::Vector2f 
+ */
 sf::Vector2f Level::extrapolateTilePosition(const tmx::Map& map, const tmx::TileLayer &currentLayer, const size_t currentTileNumber, const float scalar)
 {
 	const tmx::Vector2u& numTiles = map.getTileCount();
@@ -93,6 +126,12 @@ sf::Vector2f Level::extrapolateTilePosition(const tmx::Map& map, const tmx::Tile
 	return sf::Vector2f(row, col);
 }
 
+/**
+ * @brief calculates a sprite scalar based on window size
+ * 
+ * @param map tmxMap to derive tilecount and tilesize
+ * @return const float the appropriate scalar based on window size and map size
+ */
 const float Level::calculateScalar(const tmx::Map& map)
 {
 	const tmx::Vector2u& numTiles = map.getTileCount();
@@ -104,6 +143,13 @@ const float Level::calculateScalar(const tmx::Map& map)
 	return std::min(winSize.x / mapSize.x, winSize.y / mapSize.y);
 }
 
+/**
+ * @brief converts a tmx::Vector2u position and size to sf:IntRect for a texture
+ * 
+ * @param position 
+ * @param size 
+ * @return sf::IntRect* 
+ */
 sf::IntRect* Level::getTileTextureRect(const tmx::Vector2u& position, const tmx::Vector2u& size)
 {
 	const auto posX = static_cast<int>(position.x);
