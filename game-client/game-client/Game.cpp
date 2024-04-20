@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Background.h"
 #include "Level.h"
+#include "Lever.h"
 
 const b2Vec2 GRAVITY_RATE( 0.0f, 25.0f );
 
@@ -39,6 +40,10 @@ std::vector<Entity*> Game::setUpLevel()
 	auto player = new Player({ 400.0f, 100.0f }, mTextureManager, mWorld);
 
 	std::vector<Entity*> entities = { player, platform };
+
+	auto levers1 = new Lever({ 500.0f, 300.0f }, mTextureManager, mWorld);
+
+	entities.push_back(levers1);
 
 	createWorldBoundaries(entities);
 
