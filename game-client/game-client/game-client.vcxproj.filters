@@ -67,6 +67,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Emerald.cpp">
+    <ClCompile Include="Lever.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lever.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

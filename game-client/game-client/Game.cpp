@@ -4,14 +4,51 @@
 #include "Level.h"
 #include "PlayerView.h"
 
+
 /**
  * @brief Construct a new Game:: Game object
  * 
  * @param window reference to the main window
  * @param textureManager reference to the texture manager
  */
+
 Game::Game(sf::RenderWindow& window)
 	:mResourceContainer(window) {}
+
+void Game::createWorldBoundaries(std::vector<Entity*> &entities)
+{
+
+	const float WINDOW_WIDTH = mWindow.getSize().x;
+	const float WINDOW_HEIGHT = mWindow.getSize().y;
+
+	auto top = new Entity({ {WINDOW_WIDTH / 2, -10}, {WINDOW_WIDTH, 20} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Top wall
+	auto left = new Entity({ {-10, WINDOW_HEIGHT / 2 }, {20, WINDOW_HEIGHT} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Left wall
+	auto right = new Entity({ {WINDOW_WIDTH + 10, WINDOW_HEIGHT / 2}, {20, WINDOW_HEIGHT} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Black);   // Right wall
+	auto ground = new Entity({ {WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10}, {WINDOW_WIDTH, 20} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Green);   // Ground
+
+}
+
+/**
+ * @brief Creates physics boundaries and loads their sprites
+ * 
+ * @return std::vector<Entity*> an array with all of the entities created for the level
+ */
+std::vector<Entity*> Game::setUpLevel()
+{
+	auto platform = new Entity({ {400, 500}, {200, 20} }, mWorld, b2_staticBody, false, nullptr, sf::Color::Green); // platform
+	auto player = new Player({ 400.0f, 100.0f }, mTextureManager, mWorld);
+
+	std::vector<Entity*> entities = { player, platform };
+
+	auto levers1 = new Lever({ 500.0f, 300.0f }, mTextureManager, mWorld);
+
+	entities.push_back(levers1);
+
+	createWorldBoundaries(entities);
+
+	return entities;
+}
+
 
 
 /**
