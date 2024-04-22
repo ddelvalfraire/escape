@@ -3,19 +3,24 @@
 #include "Player.h"
 
 constexpr auto MOVE_SPEED = 8.0f;
-constexpr auto JUMP_FORCE = 15.0f;
+constexpr auto JUMP_FORCE = 17.0f;
 constexpr auto ACCELERATION = 1.f;
 constexpr auto DECELERATION = 1.f;
 constexpr auto LADDER_SPEED = 3.0f;
 constexpr auto INTERACTION_RANGE = 50.0f;
 
 
-constexpr auto SCALAR = 3.5F;
+constexpr auto SCALAR = 2.5F;
 constexpr auto FALL = "Fall.png";
 constexpr auto IDLE = "Idle.png";
 constexpr auto RUN = "Run.png";
 constexpr auto JUMP = "Jump.png";
 
+
+Player::Player(sf::Vector2f position, ResourceContainer& resourceContainer)
+	:Player(position, resourceContainer.textureManager(), resourceContainer.world())
+{
+}
 
 /**
  * @brief Construct a new Player:: Player object
@@ -26,64 +31,39 @@ constexpr auto JUMP = "Jump.png";
  */
 Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& physicsWorld)
 	:Entity(),
-	mTextureManager(textureManager),
-	mCurrentAnimation(nullptr),
-	mAccumulator(0.0f),
-	currentFrame(0)
+	Animatable(textureManager)
 {
-	initAnimationData();
+	loadAnimations();
 	setAnimation(IDLE);
 
-	sf::IntRect _ = mCurrentAnimation->frames[currentFrame]; 
+	sf::IntRect& frame = mCurrentAnimation->frames[mCurrentFrame]; 
+	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->textureKey);
 
-	sf::FloatRect frame(sf::Vector2f(_.getPosition()), sf::Vector2f(_.getSize()));
-	sf::Texture tex = mCurrentAnimation->texture;
-
-	sf::FloatRect physicsRect(position, frame.getSize());
+	const int x = position.x, y = position.y;
+	sf::IntRect physicsRect({x, y}, frame.getSize());
 
 	mpPhysicsBody = initPhysicsBody(physicsRect, physicsWorld, b2_dynamicBody, SCALAR);
-	mpSprite = initSprite(frame, true, &tex,sf::Color::Red, SCALAR);
+	mpDrawable = initDrawable(frame,tex, position, true, SCALAR);
 
+}
+
+
+Player::~Player()
+{
 }
 
 /**
  * @brief Loads and creates animation data
  * 
  */
-void Player::initAnimationData()
+void Player::loadAnimations()
 {
-	loadAnimation(FALL, 1, 0.0f);
-	loadAnimation(IDLE, 11, 50.0f);
-	loadAnimation(RUN, 12, 50.0f);
-	loadAnimation(JUMP, 1, 0);
-}
+	sf::Vector2i sizeInPixels(32, 32);
 
-/**
- * @brief Creates an AnimationData struct and adds it animations map
- * 
- * @param name filename of the animation png
- * @param frameCount number of frames in png
- * @param frameRate frame display rate for accumulator
- */
-void Player::loadAnimation(const std::string& name, int frameCount, float frameRate)
-{
-	std::vector<sf::IntRect> frames;
-	for (int i = 0; i < frameCount; ++i)
-	{
-		sf::IntRect frame(32 * i, 0, 32, 32);
-		frames.push_back(frame);
-	}
-	mTextureManager.loadTexture(name);
-	
-	AnimationData animData = {
-		*mTextureManager.getTexture(name),
-		frames,
-		name,
-		frameCount,
-		frameRate,
-	};
-	
-	mAnimations.emplace(name, animData);
+	loadAnimation(FALL, 1, 0.0f, sizeInPixels);
+	loadAnimation(IDLE, 11, 50.0f, sizeInPixels);
+	loadAnimation(RUN, 12, 50.0f, sizeInPixels);
+	loadAnimation(JUMP, 1, 0, sizeInPixels);
 }
 
 /**
@@ -93,7 +73,7 @@ void Player::loadAnimation(const std::string& name, int frameCount, float frameR
  */
 void Player::updateAnimation(sf::Time dt)
 {
-	auto sprite = static_cast<sf::Sprite*>(mpSprite);
+	auto sprite = static_cast<sf::Sprite*>(mpDrawable);
 	b2Vec2 velocity = mpPhysicsBody->GetLinearVelocity();
 
 	if (velocity.y > 0)
@@ -112,17 +92,18 @@ void Player::updateAnimation(sf::Time dt)
 
 	if (mAccumulator >= mCurrentAnimation->frameRate)
 	{
-		currentFrame = (currentFrame + 1) % mCurrentAnimation->frameCount;
+		mCurrentFrame = (mCurrentFrame + 1) % mCurrentAnimation->frameCount;
 		mAccumulator = 0.0f;
 	}
 	
 	if (!sprite)
 		throw std::runtime_error("Player does not have a sprite loaded");
 
-	if (sprite->getTexture() != &mCurrentAnimation->texture) // do not update if texture is the same
-		sprite->setTexture(mCurrentAnimation->texture);
+	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->name);
+	if (sprite->getTexture() != tex) // do not update if texture is the same
+		sprite->setTexture(*tex);
 
-	sf::IntRect frame = mCurrentAnimation->frames[currentFrame];
+	sf::IntRect frame = mCurrentAnimation->frames[mCurrentFrame];
 
 	sprite->setTextureRect(frame);
 
@@ -173,32 +154,6 @@ void Player::update(sf::Time dt)
 	syncPositions();
 }
 
-/**
- * @brief Retrieves the current animation playing
- * 
- * @return AnimationData& reference to the animation currently playing
- */
-AnimationData& Player::currentAnimation()
-{
-	if (!mCurrentAnimation)
-		throw std::runtime_error("Player does not have animation loaded");
-
-	return *mCurrentAnimation;
-}
-
-/**
- * @brief Changes the current animation being played
- * 
- * @param name filename of the animation to play
- */
-void Player::setAnimation(const std::string& name)
-{
-	if (mAnimations.count(name) == 0)
-		throw std::runtime_error("Animation does not exist in Player");
-	
-
-	mCurrentAnimation = &mAnimations.at(name);
-}
 
 /**
  * @brief mIsInteracting getter
@@ -216,4 +171,10 @@ bool Player::isInteracting()
 void Player::isInteracting(bool flag)
 {
 	mIsInteracting = flag;
+}
+
+sf::Vector2f Player::getPosition()
+{
+	const auto sprite = static_cast<sf::Sprite*>(mpDrawable);
+	return sprite->getPosition();
 }

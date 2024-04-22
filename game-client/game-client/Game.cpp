@@ -2,9 +2,8 @@
 #include "Player.h"
 #include "Background.h"
 #include "Level.h"
-#include "Lever.h"
+#include "PlayerView.h"
 
-const b2Vec2 GRAVITY_RATE( 0.0f, 25.0f );
 
 /**
  * @brief Construct a new Game:: Game object
@@ -12,9 +11,9 @@ const b2Vec2 GRAVITY_RATE( 0.0f, 25.0f );
  * @param window reference to the main window
  * @param textureManager reference to the texture manager
  */
-Game::Game(sf::RenderWindow& window, TextureManager& textureManager)
-	:mWindow(window), mWorld(GRAVITY_RATE), mTextureManager(textureManager) {}
 
+Game::Game(sf::RenderWindow& window)
+	:mResourceContainer(window) {}
 
 void Game::createWorldBoundaries(std::vector<Entity*> &entities)
 {
@@ -58,16 +57,20 @@ std::vector<Entity*> Game::setUpLevel()
  */
 void Game::pollEvents()
 {
+	sf::RenderWindow& window = mResourceContainer.window();
+
 	sf::Event event;
-	while (mWindow.pollEvent(event))
+	while (window.pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
 		{
-			mWindow.close();
+			window.close();
 		}
 	}
 }
-
+sf::Vector2f convertBox2dToSFML(const b2Vec2& vector, const float& scale) {
+	return sf::Vector2f(vector.x * scale, vector.y * scale);
+}
 
 /**
  * @brief Entry point for the game
@@ -75,15 +78,17 @@ void Game::pollEvents()
  */
 void Game::run()
 {
+	sf::RenderWindow& window = mResourceContainer.window();
+	b2World& world = mResourceContainer.world();
 
-	std::vector<Entity*> entities = setUpLevel();
-
-	Player* player = static_cast<Player*>(entities[0]);
-	Background background(mWindow, mTextureManager);
-	Level level("tiled/1.tmx", mWindow);
+	Background background(mResourceContainer);
+	Level level("tiled/1.tmx", { 400, 100 },mResourceContainer);
+	Player* player = level.player();
+	PlayerView view(window, player, level.metaData());
+	Emerald em({ 500, 100 }, mResourceContainer);
 
 	sf::Clock clock;
-	while (mWindow.isOpen())
+	while (window.isOpen())
 	{
 		sf::Time dt = clock.restart();
 		
@@ -91,29 +96,34 @@ void Game::run()
 
 		player->handleKeyInputs();
 
-		mWorld.Step(1.0f / 60.0f, 8, 3);
+		world.Step(1.0f / 60.0f, 8, 3);
 
 		if (player->isInteracting()) {
 			player->isInteracting(false); 
 		}
 
 		player->update(dt); // updates need to happen after interactions
-		background.update(dt);
 
-		mWindow.clear();
+		background.update(dt);
+	
+		em.update(dt);
+		
+		view.update();
+
+		window.clear();
+
+		window.setView(view);
 
 		for (auto& sprite : background.getSprites())
-			mWindow.draw(*sprite);
+			window.draw(*sprite);
 
-		for (auto& sprite : level.sprites())
-			mWindow.draw(*sprite);
+		for (auto& entity : level.entities())
+			window.draw(*entity->sprite());
 
-		for (auto entity : entities)
-			mWindow.draw(*entity->sprite());
-
+		window.draw(*em.sprite());
 		
 		
-		mWindow.display();
+		window.display();
 	}
 }
 
