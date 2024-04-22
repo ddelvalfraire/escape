@@ -17,6 +17,11 @@ constexpr auto RUN = "Run.png";
 constexpr auto JUMP = "Jump.png";
 
 
+Player::Player(sf::Vector2f position, ResourceContainer& resourceContainer)
+	:Player(position, resourceContainer.textureManger(), resourceContainer.world())
+{
+}
+
 /**
  * @brief Construct a new Player:: Player object
  * 
@@ -34,16 +39,22 @@ Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& p
 	initAnimationData();
 	setAnimation(IDLE);
 
-	sf::IntRect _ = mCurrentAnimation->frames[currentFrame]; 
+	sf::IntRect& frame = mCurrentAnimation->frames[currentFrame]; 
+	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->textureKey);
 
-	sf::FloatRect frame(sf::Vector2f(_.getPosition()), sf::Vector2f(_.getSize()));
-	sf::Texture tex = mCurrentAnimation->texture;
-
-	sf::FloatRect physicsRect(position, frame.getSize());
+	const int x = position.x, y = position.y;
+	sf::IntRect physicsRect({x, y}, frame.getSize());
 
 	mpPhysicsBody = initPhysicsBody(physicsRect, physicsWorld, b2_dynamicBody, SCALAR);
-	mpSprite = initSprite(frame, true, &tex,sf::Color::Red, SCALAR);
+	mpDrawable = initDrawable(frame,tex, position, true, SCALAR);
 
+}
+
+
+Player::~Player()
+{
+	for (auto& data : mAnimations)
+		mTextureManager.deleteTexture(data.second.textureKey);
 }
 
 /**
@@ -76,7 +87,7 @@ void Player::loadAnimation(const std::string& name, int frameCount, float frameR
 	mTextureManager.loadTexture(name);
 	
 	AnimationData animData = {
-		*mTextureManager.getTexture(name),
+		name,
 		frames,
 		name,
 		frameCount,
@@ -93,7 +104,7 @@ void Player::loadAnimation(const std::string& name, int frameCount, float frameR
  */
 void Player::updateAnimation(sf::Time dt)
 {
-	auto sprite = static_cast<sf::Sprite*>(mpSprite);
+	auto sprite = static_cast<sf::Sprite*>(mpDrawable);
 	b2Vec2 velocity = mpPhysicsBody->GetLinearVelocity();
 
 	if (velocity.y > 0)
@@ -119,8 +130,9 @@ void Player::updateAnimation(sf::Time dt)
 	if (!sprite)
 		throw std::runtime_error("Player does not have a sprite loaded");
 
-	if (sprite->getTexture() != &mCurrentAnimation->texture) // do not update if texture is the same
-		sprite->setTexture(mCurrentAnimation->texture);
+	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->name);
+	if (sprite->getTexture() != tex) // do not update if texture is the same
+		sprite->setTexture(*tex);
 
 	sf::IntRect frame = mCurrentAnimation->frames[currentFrame];
 

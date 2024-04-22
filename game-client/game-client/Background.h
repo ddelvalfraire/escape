@@ -1,12 +1,13 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
-#include "TextureManager.h"
+#include "ResourceContainer.h"
 
-class Background {
-
+class Background 
+{
 
 public:
+    Background(ResourceContainer& resourceContainer);
     Background(sf::RenderWindow& window, TextureManager& textureManager);
     ~Background() = default;
 

@@ -12,14 +12,23 @@ class Entity
 {
 public:
 	Entity(
-		sf::FloatRect rect,
+		sf::IntRect rect,
 		b2World& physicsWorld,
 		b2BodyType physicsType,
-		bool centerOrigin = false,
+		sf::Color color = sf::Color::Transparent
+	);
+
+	Entity(
+		sf::IntRect textRect,
+		b2World& physicsWorld,
+		b2BodyType physicsType,
+		bool centerOrigin,
 		sf::Texture* texture = nullptr,
-		sf::Color color = sf::Color::Red,
+		sf::Vector2f position = { 0.0, 0.0 },
+		sf::Color color = sf::Color::Transparent,
 		float scalar = 1.0f
 	);
+
 	~Entity();
 
 	void syncPositions();
@@ -29,12 +38,13 @@ public:
 
 protected:
 	Entity();
-	b2Body* initPhysicsBody(sf::FloatRect& rect, b2World& physicsWorld, b2BodyType physicsType, float scalar = 1);
-	sf::Drawable* initSprite(sf::FloatRect& rect, bool centerOrigin, sf::Texture* texture, sf::Color color = sf::Color::Red , float scalar = 1);
+	b2Body* initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld, b2BodyType physicsType, float scalar );
+	sf::Drawable* initDrawable(const sf::IntRect& textRect, const sf::Texture* texture, const sf::Vector2f& position, bool centerOrigin, float scalar);
+	sf::Drawable* initDrawable(const sf::IntRect& textRect, bool centerOrigin, const sf::Texture* texture, const sf::Vector2f position, sf::Color color, float scalar);
 	void sprite(sf::Sprite* sprite);
 
 	b2Body* mpPhysicsBody;
-	sf::Drawable* mpSprite;
+	sf::Drawable* mpDrawable;
 };
 
 #endif // !ENTITY_H

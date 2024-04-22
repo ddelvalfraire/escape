@@ -1,5 +1,10 @@
 #include "Background.h"
 
+Background::Background(ResourceContainer& resourceContainer)
+    :Background(resourceContainer.window(), resourceContainer.textureManger())
+{
+}
+
 /**
  * @brief Construct a new Background:: Background object
  * 
@@ -46,8 +51,11 @@ void Background::loadBackgroundSprites()
 
     for (auto& fileName : layerFileNames)
     {
-        mTextureManager.loadTexture(fileName);
-        sf::Texture* tex = mTextureManager.getTexture(fileName);
+        std::string filePath = "Background/";
+        filePath.append(fileName);
+
+        mTextureManager.loadTexture(filePath);
+        sf::Texture* tex = mTextureManager.getTexture(filePath);
 
         mSprites.emplace_back(new sf::Sprite(*tex));
         sf::Sprite* sprite = mSprites.back();
@@ -102,8 +110,7 @@ void Background::animateBackground(float moveSpeed, std::vector<sf::Sprite*> &sp
  */
 void Background::update(sf::Time dt)
 {
-    constexpr auto UPDATE_FREQ = 8.0f;
-    constexpr auto MOVE_SPEED = 1.0f;
+    constexpr auto UPDATE_FREQ = 8.0f, MOVE_SPEED = 1.0f;
 
     mAccumulator += dt.asMilliseconds();
    
@@ -113,8 +120,6 @@ void Background::update(sf::Time dt)
         animateBackground(MOVE_SPEED, mForegroundSprites);
         mAccumulator = 0.0f;
     }
-
-
 }
 
 /**

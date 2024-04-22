@@ -1,15 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <unordered_map>
-#include <queue>
-
 #include "Entity.h"
-#include "TextureManager.h"
+#include "ResourceContainer.h"
 
 struct AnimationData
 {
-	sf::Texture& texture;
+	std::string textureKey;
 	std::vector<sf::IntRect> frames;
 	std::string name;
 	int frameCount;
@@ -20,8 +17,11 @@ struct AnimationData
 class Player : public Entity
 {
 public:
+	Player(sf::Vector2f position, ResourceContainer& resourceContainer);
 	Player(sf::Vector2f position, TextureManager& textureManager, b2World& physicsWorld);
-	
+
+	~Player();
+
 	void handleKeyInputs();
 	void update(sf::Time dt);
 	AnimationData& currentAnimation();
@@ -37,6 +37,7 @@ private:
 
 	float mAccumulator;
 	AnimationData* mCurrentAnimation;
+	b2World* mWorld;
 	int currentFrame;
 	std::unordered_map<std::string, AnimationData> mAnimations;
 	TextureManager& mTextureManager;

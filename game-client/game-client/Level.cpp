@@ -1,25 +1,28 @@
 #include "Level.h"
 
-/**
- * @brief Construct a new Level:: Level object
- * 
- * @param tmxFile filepath to load 
- * @param window 
- */
-Level::Level(const std::string& tmxFile, sf::RenderWindow& window)
-	: mTmxFile(tmxFile), mWindow(window) 
+
+Level::Level(const std::string& tmxFile, sf::Vector2f playerPosition, ResourceContainer& resourceContainer)
+	:Level(tmxFile,playerPosition, resourceContainer.window(), resourceContainer.world(), resourceContainer.textureManger())
+{}
+
+Level::Level(const std::string & tmxFile,sf::Vector2f playerPosition, sf::RenderWindow & window, b2World& world, TextureManager & textureManager)
+	:mTmxFile(tmxFile), mWindow(window), mWorld(world), playerInitialPosition(playerPosition), entityFactory(world, window, textureManager) 
 {
 	loadTmxMap();
+	createWorldBoundaries();
+	mPlayer = entityFactory.createPlayer(playerPosition);
+	mEntities.push_back(mPlayer);
 }
 
-/**
- * @brief sprite getter for the level
- * 
- * @return const std::vector<sf::Sprite*>& 
- */
-const std::vector<sf::Sprite*>& Level::sprites()
+
+Player* Level::player()
 {
-	return mSprites;
+	return mPlayer;
+}
+
+const std::vector<Entity*>& Level::entities()
+{
+	return mEntities;
 }
 
 /**
@@ -29,12 +32,15 @@ const std::vector<sf::Sprite*>& Level::sprites()
 void Level::loadTmxMap()
 {
 	tmx::Map map;
+
 	if (!map.load(mTmxFile))
 		throw std::runtime_error("Could not load tmx file");
 	
 	parseTilesets(map);
 	parseLayers(map);
 }
+
+
 
 /**
  * @brief Iterates through a tilesets and creates their textures and text rects
@@ -71,37 +77,48 @@ void Level::parseTilesets(const tmx::Map &map)
  */
 void Level::parseLayers(const tmx::Map &map)
 {
-	const auto& layers = map.getLayers();
-	for (int i = 1; i < 3; i++)
-	{
-		const auto& layer = layers[i];
+	const auto& layer = map.getLayers()[1];
 
-		if (layer->getType() != tmx::Layer::Type::Tile)
+	if (layer->getType() != tmx::Layer::Type::Tile)
+		throw std::runtime_error("this is not a valid layer");
+
+	const auto& tileLayer = layer->getLayerAs<tmx::TileLayer>();
+	const std::vector<tmx::TileLayer::Tile>& tiles = tileLayer.getTiles();
+
+	// for of loop does not work here for some reason
+	for (size_t tileNumber = 0; tileNumber < tiles.size(); ++tileNumber) 
+	{
+		const tmx::TileLayer::Tile& tile = tiles[tileNumber];
+
+		if (tile.ID == 0)
 			continue;
 
-		const auto& tileLayer = layer->getLayerAs<tmx::TileLayer>();
-		const std::vector<tmx::TileLayer::Tile>& tiles = tileLayer.getTiles();
+		const auto& pair = mTileMap.at(tile.ID);
+		
+		const float scalar = calculateScalar(map);
 
-		// for of loop does not work here for some reason
-		for (size_t tileNumber = 0; tileNumber < tiles.size(); ++tileNumber) 
-		{
-			const tmx::TileLayer::Tile& tile = tiles[tileNumber];
+		sf::Vector2f position = extrapolateTilePosition(map, tileLayer, tileNumber, scalar);
 
-			if (tile.ID == 0)
-				continue;
+		auto entity = entityFactory.createMapTile(*pair.second, *pair.first, position, scalar);
 
-			const auto& pair = mTileMap.at(tile.ID);
-			auto sprite = new sf::Sprite(*pair.second, *pair.first);
-
-			const float scalar = calculateScalar(map);
-			sprite->setScale(scalar, scalar);
-
-			const sf::Vector2f position = extrapolateTilePosition(map, tileLayer, tileNumber, scalar);
-			sprite->setPosition(position);
-
-			mSprites.push_back(sprite);
-		}
+		mEntities.push_back(entity);
 	}
+}
+
+void Level::createWorldBoundaries()
+{
+	const int WINDOW_WIDTH = mWindow.getSize().x;
+	const int WINDOW_HEIGHT = mWindow.getSize().y;
+
+	auto left = entityFactory.createBarrier({ {-10, WINDOW_HEIGHT / 2 }, {20, WINDOW_HEIGHT} });
+	auto right = entityFactory.createBarrier({ {WINDOW_WIDTH + 10, WINDOW_HEIGHT / 2}, {20, WINDOW_HEIGHT} });
+	auto ground = entityFactory.createBarrier({ {WINDOW_WIDTH / 2, WINDOW_HEIGHT - 10}, {WINDOW_WIDTH, 20} });
+
+
+	mEntities.push_back(left);
+	mEntities.push_back(right);
+	mEntities.push_back(ground);
+
 }
 
 /**
