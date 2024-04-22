@@ -2,6 +2,7 @@
 #define ENTITY_FACTORY_H
 
 #include "Player.h"
+#include "Emerald.h"
 #include "ResourceContainer.h"
 
 class EntityFactory
@@ -11,6 +12,7 @@ public:
 	EntityFactory(b2World& world, sf::RenderWindow& window, TextureManager& textureManager);
 
 	Player* createPlayer(sf::Vector2f position);
+	Emerald* createEmerald(sf::Vector2f position);
 	Entity* createBarrier(sf::IntRect rect);
 	Entity* createMapTile(sf::Texture& tex, sf::IntRect& texRect, sf::Vector2f& position, float scalar);
 private:

@@ -25,6 +25,9 @@
     <Filter Include="Resource Files\Entities">
       <UniqueIdentifier>{8b6b9b27-5e84-4d56-9a4c-1d5a619a8bbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Entities\Gems">
+      <UniqueIdentifier>{8dc5c7a7-9b26-4bce-9bad-788a57daf265}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="Animatable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Emerald.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -96,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animatable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emerald.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -195,6 +204,24 @@
     </Image>
     <Image Include="Entities\key.png">
       <Filter>Resource Files\Entities</Filter>
+    </Image>
+    <Image Include="Entities\Gems\1.png">
+      <Filter>Resource Files\Entities\Gems</Filter>
+    </Image>
+    <Image Include="Entities\Gems\2.png">
+      <Filter>Resource Files\Entities\Gems</Filter>
+    </Image>
+    <Image Include="Entities\Gems\3.png">
+      <Filter>Resource Files\Entities\Gems</Filter>
+    </Image>
+    <Image Include="Entities\Gems\4.png">
+      <Filter>Resource Files\Entities\Gems</Filter>
+    </Image>
+    <Image Include="Entities\Gems\5.png">
+      <Filter>Resource Files\Entities\Gems</Filter>
+    </Image>
+    <Image Include="Entities\Gems\6.png">
+      <Filter>Resource Files\Entities\Gems</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

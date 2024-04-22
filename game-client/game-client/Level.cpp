@@ -2,7 +2,7 @@
 
 
 Level::Level(const std::string& tmxFile, sf::Vector2f playerPosition, ResourceContainer& resourceContainer)
-	:Level(tmxFile,playerPosition, resourceContainer.window(), resourceContainer.world(), resourceContainer.textureManger())
+	:Level(tmxFile,playerPosition, resourceContainer.window(), resourceContainer.world(), resourceContainer.textureManager())
 {}
 
 Level::Level(const std::string & tmxFile,sf::Vector2f playerPosition, sf::RenderWindow & window, b2World& world, TextureManager & textureManager)

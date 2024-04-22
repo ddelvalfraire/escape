@@ -18,7 +18,7 @@ constexpr auto JUMP = "Jump.png";
 
 
 Player::Player(sf::Vector2f position, ResourceContainer& resourceContainer)
-	:Player(position, resourceContainer.textureManger(), resourceContainer.world())
+	:Player(position, resourceContainer.textureManager(), resourceContainer.world())
 {
 }
 
@@ -36,7 +36,7 @@ Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& p
 	loadAnimations();
 	setAnimation(IDLE);
 
-	sf::IntRect& frame = mCurrentAnimation->frames[currentFrame]; 
+	sf::IntRect& frame = mCurrentAnimation->frames[mCurrentFrame]; 
 	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->textureKey);
 
 	const int x = position.x, y = position.y;
@@ -58,10 +58,12 @@ Player::~Player()
  */
 void Player::loadAnimations()
 {
-	loadAnimation(FALL, 1, 0.0f);
-	loadAnimation(IDLE, 11, 50.0f);
-	loadAnimation(RUN, 12, 50.0f);
-	loadAnimation(JUMP, 1, 0);
+	sf::Vector2i sizeInPixels(32, 32);
+
+	loadAnimation(FALL, 1, 0.0f, sizeInPixels);
+	loadAnimation(IDLE, 11, 50.0f, sizeInPixels);
+	loadAnimation(RUN, 12, 50.0f, sizeInPixels);
+	loadAnimation(JUMP, 1, 0, sizeInPixels);
 }
 
 /**
@@ -90,7 +92,7 @@ void Player::updateAnimation(sf::Time dt)
 
 	if (mAccumulator >= mCurrentAnimation->frameRate)
 	{
-		currentFrame = (currentFrame + 1) % mCurrentAnimation->frameCount;
+		mCurrentFrame = (mCurrentFrame + 1) % mCurrentAnimation->frameCount;
 		mAccumulator = 0.0f;
 	}
 	
@@ -101,7 +103,7 @@ void Player::updateAnimation(sf::Time dt)
 	if (sprite->getTexture() != tex) // do not update if texture is the same
 		sprite->setTexture(*tex);
 
-	sf::IntRect frame = mCurrentAnimation->frames[currentFrame];
+	sf::IntRect frame = mCurrentAnimation->frames[mCurrentFrame];
 
 	sprite->setTextureRect(frame);
 

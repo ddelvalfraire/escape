@@ -1,7 +1,7 @@
 #include "EntityFactory.h"
 
 EntityFactory::EntityFactory(ResourceContainer& resourceContainer)
-	:EntityFactory(resourceContainer.world(), resourceContainer.window(), resourceContainer.textureManger())
+	:EntityFactory(resourceContainer.world(), resourceContainer.window(), resourceContainer.textureManager())
 {}
 
 EntityFactory::EntityFactory(b2World & world, sf::RenderWindow & window, TextureManager & textureManager)
@@ -11,6 +11,11 @@ EntityFactory::EntityFactory(b2World & world, sf::RenderWindow & window, Texture
 Player* EntityFactory::createPlayer(sf::Vector2f position)
 {
 	return new Player(position, mTextureManager, mWorld);
+}
+
+Emerald* EntityFactory::createEmerald(sf::Vector2f position)
+{
+	return nullptr;
 }
 
 Entity* EntityFactory::createBarrier(sf::IntRect rect)

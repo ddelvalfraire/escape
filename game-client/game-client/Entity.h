@@ -35,10 +35,11 @@ public:
 
 	b2Body* physicsBody();
 	sf::Drawable* sprite();
+	
 
 protected:
 	Entity();
-	b2Body* initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld, b2BodyType physicsType, float scalar );
+	b2Body* initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld, b2BodyType physicsType, float scalar, bool isSensor = false);
 	sf::Drawable* initDrawable(const sf::IntRect& textRect, const sf::Texture* texture, const sf::Vector2f& position, bool centerOrigin, float scalar);
 	sf::Drawable* initDrawable(const sf::IntRect& textRect, bool centerOrigin, const sf::Texture* texture, const sf::Vector2f position, sf::Color color, float scalar);
 	void sprite(sf::Sprite* sprite);

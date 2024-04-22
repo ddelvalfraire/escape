@@ -11,7 +11,7 @@ public:
 	ResourceContainer(sf::RenderWindow& window);
 
 	sf::RenderWindow& window();
-	TextureManager& textureManger();
+	TextureManager& textureManager();
 	b2World& world();
 	
 private:

@@ -48,6 +48,7 @@ void Game::run()
 	Level level("tiled/1.tmx", { 400, 100 },mResourceContainer);
 	Player* player = level.player();
 	PlayerView view(window, player, level.metaData());
+	Emerald em({ 500, 100 }, mResourceContainer);
 
 	sf::Clock clock;
 	while (window.isOpen())
@@ -65,9 +66,11 @@ void Game::run()
 		}
 
 		player->update(dt); // updates need to happen after interactions
-		background.update(dt);
 
+		background.update(dt);
 	
+		em.update(dt);
+		
 		view.update();
 
 		window.clear();
@@ -79,6 +82,8 @@ void Game::run()
 
 		for (auto& entity : level.entities())
 			window.draw(*entity->sprite());
+
+		window.draw(*em.sprite());
 		
 		
 		window.display();

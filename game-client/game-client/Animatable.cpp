@@ -1,7 +1,10 @@
 #include "Animatable.h"
 
 Animatable::Animatable(TextureManager& textureManager)
-	:mTextureManager(textureManager)
+	:mTextureManager(textureManager),
+	mCurrentAnimation(nullptr),
+	mAccumulator(0.0f),
+	mCurrentFrame(0)
 {}
 
 Animatable::~Animatable()
@@ -17,12 +20,12 @@ Animatable::~Animatable()
  * @param frameCount number of frames in png
  * @param frameRate frame display rate for accumulator
  */
-void Animatable::loadAnimation(const std::string & name, int frameCount, float frameRate)
+void Animatable::loadAnimation(const std::string & name, int frameCount, float frameRate, sf::Vector2i size)
 {
 	std::vector<sf::IntRect> frames;
 	for (int i = 0; i < frameCount; ++i)
 	{
-		sf::IntRect frame(32 * i, 0, 32, 32);
+		sf::IntRect frame(size.x * i, 0, size.x, size.y);
 		frames.push_back(frame);
 	}
 	mTextureManager.loadTexture(name);

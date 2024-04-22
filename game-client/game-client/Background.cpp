@@ -1,7 +1,7 @@
 #include "Background.h"
 
 Background::Background(ResourceContainer& resourceContainer)
-    :Background(resourceContainer.window(), resourceContainer.textureManger())
+    :Background(resourceContainer.window(), resourceContainer.textureManager())
 {
 }
 
@@ -51,11 +51,11 @@ void Background::loadBackgroundSprites()
 
     for (auto& fileName : layerFileNames)
     {
-        std::string filePath = "Background/";
-        filePath.append(fileName);
+        std::string FILE_PATH = "Background/";
+        FILE_PATH.append(fileName);
 
-        mTextureManager.loadTexture(filePath);
-        sf::Texture* tex = mTextureManager.getTexture(filePath);
+        mTextureManager.loadTexture(FILE_PATH);
+        sf::Texture* tex = mTextureManager.getTexture(FILE_PATH);
 
         mSprites.emplace_back(new sf::Sprite(*tex));
         sf::Sprite* sprite = mSprites.back();

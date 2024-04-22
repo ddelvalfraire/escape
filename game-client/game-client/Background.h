@@ -13,6 +13,7 @@ public:
 
     void update(sf::Time dt);
     std::vector<sf::Sprite*>& getSprites();
+
 private:
     void loadBackgroundSprites();
     void animateBackground(float moveSpeed, std::vector<sf::Sprite*>& sprites);

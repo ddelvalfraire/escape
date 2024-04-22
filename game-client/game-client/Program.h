@@ -7,6 +7,5 @@ class Program
 {
 public:
 	void run();
-
 };
 #endif // !PROGRAM_H

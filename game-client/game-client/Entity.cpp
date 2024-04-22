@@ -99,7 +99,7 @@ void Entity::sprite(sf::Sprite* sprite)
  * @param scalar body scalar to match sprite scaling
  * @return b2Body* reference to the newly created body
  */
-b2Body* Entity::initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld, b2BodyType physicsType, float scalar)
+b2Body* Entity::initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld, b2BodyType physicsType, float scalar, bool isSensor)
 {
 	b2BodyDef bDef; 
 	b2FixtureDef fDef; 
@@ -113,6 +113,7 @@ b2Body* Entity::initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld,
 	shape.SetAsBox( sizeX, sizeY);
 	bDef.type = physicsType;
 	b2Body* body = physicsWorld.CreateBody(&bDef);
+	fDef.isSensor = isSensor;
 	fDef.shape = &shape;
 	fDef.density = DENSITY;
 	fDef.friction = FRICTION;

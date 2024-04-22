@@ -11,7 +11,7 @@ sf::RenderWindow& ResourceContainer::window()
     return mWindow;
 }
 
-TextureManager& ResourceContainer::textureManger()
+TextureManager& ResourceContainer::textureManager()
 {
     return mTextureManager;
 }

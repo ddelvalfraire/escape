@@ -24,15 +24,20 @@ protected:
 	Animatable(TextureManager& textureManager);
 	~Animatable();
 
-	void loadAnimation(const std::string& name, int frameCount, float frameRate);
+	void loadAnimation(const std::string& name, int frameCount, float frameRate, sf::Vector2i size);
 	void setAnimation(const std::string& name);
+
 	AnimationData& currentAnimation();
+	virtual void update(sf::Time dt) = 0;
+
+private:
 
 	virtual void loadAnimations() = 0;
 	virtual void updateAnimation(sf::Time dt) = 0;
 
+protected:
 	float mAccumulator;
-	int currentFrame;
+	int mCurrentFrame;
 	AnimationData* mCurrentAnimation;
 	std::unordered_map<std::string, AnimationData> mAnimations;
 	TextureManager& mTextureManager;
