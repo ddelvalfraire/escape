@@ -3,18 +3,9 @@
 
 #include "Entity.h"
 #include "ResourceContainer.h"
+#include "Animatable.h"
 
-struct AnimationData
-{
-	std::string textureKey;
-	std::vector<sf::IntRect> frames;
-	std::string name;
-	int frameCount;
-	float frameRate;
-};
-
-
-class Player : public Entity
+class Player : public Entity, protected Animatable
 {
 public:
 	Player(sf::Vector2f position, ResourceContainer& resourceContainer);
@@ -24,8 +15,6 @@ public:
 
 	void handleKeyInputs();
 	void update(sf::Time dt);
-	AnimationData& currentAnimation();
-	void setAnimation(const std::string& name);
 
 	bool isInteracting();
 	void isInteracting(bool flag);
@@ -33,16 +22,10 @@ public:
 	sf::Vector2f getPosition();
 
 private:
-	void updateAnimation(sf::Time dt);
-	void initAnimationData();
-	void loadAnimation(const std::string& name, int frameCount, float frameRate);
+	void updateAnimation(sf::Time dt) override;
+	void loadAnimations() override;
 
-	float mAccumulator;
-	AnimationData* mCurrentAnimation;
 	b2World* mWorld;
-	int currentFrame;
-	std::unordered_map<std::string, AnimationData> mAnimations;
-	TextureManager& mTextureManager;
 	bool mIsJumping;
 	bool mIsInteracting;
 };
