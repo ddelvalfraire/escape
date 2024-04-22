@@ -1,19 +1,17 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
-#include "ResourceContainer.h"
+#include "TextureManager.h"
 
-class Background 
-{
+class Background {
+
 
 public:
-    Background(ResourceContainer& resourceContainer);
     Background(sf::RenderWindow& window, TextureManager& textureManager);
     ~Background() = default;
 
     void update(sf::Time dt);
     std::vector<sf::Sprite*>& getSprites();
-
 private:
     void loadBackgroundSprites();
     void animateBackground(float moveSpeed, std::vector<sf::Sprite*>& sprites);
