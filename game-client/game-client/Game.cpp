@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Background.h"
 #include "Level.h"
-
+#include "PlayerView.h"
 
 /**
  * @brief Construct a new Game:: Game object
@@ -12,8 +12,6 @@
  */
 Game::Game(sf::RenderWindow& window)
 	:mResourceContainer(window) {}
-
-
 
 
 /**
@@ -46,19 +44,12 @@ void Game::run()
 	sf::RenderWindow& window = mResourceContainer.window();
 	b2World& world = mResourceContainer.world();
 
-
 	Background background(mResourceContainer);
 	Level level("tiled/1.tmx", { 400, 100 },mResourceContainer);
 	Player* player = level.player();
+	PlayerView view(window, player, level.metaData());
 
-	auto platform = new Entity({ {400, 200}, {200, 20} }, world, b2_staticBody, sf::Color::Green); // platform
-	auto pos = platform->physicsBody()->GetPosition();
 	sf::Clock clock;
-
-
-
-
-
 	while (window.isOpen())
 	{
 		sf::Time dt = clock.restart();
@@ -76,16 +67,19 @@ void Game::run()
 		player->update(dt); // updates need to happen after interactions
 		background.update(dt);
 
+	
+		view.update();
+
 		window.clear();
+
+		window.setView(view);
 
 		for (auto& sprite : background.getSprites())
 			window.draw(*sprite);
 
 		for (auto& entity : level.entities())
 			window.draw(*entity->sprite());
-
 		
-		window.draw(*platform->sprite());
 		
 		window.display();
 	}

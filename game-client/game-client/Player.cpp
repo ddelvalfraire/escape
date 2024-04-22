@@ -3,14 +3,14 @@
 #include "Player.h"
 
 constexpr auto MOVE_SPEED = 8.0f;
-constexpr auto JUMP_FORCE = 15.0f;
+constexpr auto JUMP_FORCE = 17.0f;
 constexpr auto ACCELERATION = 1.f;
 constexpr auto DECELERATION = 1.f;
 constexpr auto LADDER_SPEED = 3.0f;
 constexpr auto INTERACTION_RANGE = 50.0f;
 
 
-constexpr auto SCALAR = 3.5F;
+constexpr auto SCALAR = 2.5F;
 constexpr auto FALL = "Fall.png";
 constexpr auto IDLE = "Idle.png";
 constexpr auto RUN = "Run.png";
@@ -228,4 +228,10 @@ bool Player::isInteracting()
 void Player::isInteracting(bool flag)
 {
 	mIsInteracting = flag;
+}
+
+sf::Vector2f Player::getPosition()
+{
+	const auto sprite = static_cast<sf::Sprite*>(mpDrawable);
+	return sprite->getPosition();
 }

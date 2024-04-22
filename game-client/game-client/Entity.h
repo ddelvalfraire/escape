@@ -5,7 +5,7 @@
 #include <Box2d/Box2d.h>
 
 constexpr auto DENSITY = 1.0f;
-constexpr auto FRICTION = 0.3f;
+constexpr auto FRICTION = 1.0;
 constexpr auto B2_SF_SCALE = 30.0f;
 
 class Entity

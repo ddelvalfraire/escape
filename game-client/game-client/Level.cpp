@@ -8,10 +8,12 @@ Level::Level(const std::string& tmxFile, sf::Vector2f playerPosition, ResourceCo
 Level::Level(const std::string & tmxFile,sf::Vector2f playerPosition, sf::RenderWindow & window, b2World& world, TextureManager & textureManager)
 	:mTmxFile(tmxFile), mWindow(window), mWorld(world), playerInitialPosition(playerPosition), entityFactory(world, window, textureManager) 
 {
+
 	loadTmxMap();
 	createWorldBoundaries();
 	mPlayer = entityFactory.createPlayer(playerPosition);
 	mEntities.push_back(mPlayer);
+
 }
 
 
@@ -25,6 +27,11 @@ const std::vector<Entity*>& Level::entities()
 	return mEntities;
 }
 
+TiledMapMetaData Level::metaData()
+{
+	return mMapMetaData;
+}
+
 /**
  * @brief routine for tmx file loading based on mTmxFile
  * 
@@ -36,8 +43,23 @@ void Level::loadTmxMap()
 	if (!map.load(mTmxFile))
 		throw std::runtime_error("Could not load tmx file");
 	
+	saveMapMetaData(map);
 	parseTilesets(map);
 	parseLayers(map);
+
+
+}
+
+void Level::saveMapMetaData(const tmx::Map& map)
+{
+	mMapMetaData.mapScaleFactor = calculateScalar(map);
+	const float width = map.getTileSize().x * map.getTileCount().x;
+	const float height = map.getTileSize().y * map.getTileCount().y;
+
+	mMapMetaData.tiledMapSize = { 
+		width,
+		height
+	};
 }
 
 
@@ -95,7 +117,7 @@ void Level::parseLayers(const tmx::Map &map)
 
 		const auto& pair = mTileMap.at(tile.ID);
 		
-		const float scalar = calculateScalar(map);
+		const auto scalar = mMapMetaData.mapScaleFactor;
 
 		sf::Vector2f position = extrapolateTilePosition(map, tileLayer, tileNumber, scalar);
 

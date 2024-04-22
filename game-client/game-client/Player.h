@@ -30,6 +30,8 @@ public:
 	bool isInteracting();
 	void isInteracting(bool flag);
 
+	sf::Vector2f getPosition();
+
 private:
 	void updateAnimation(sf::Time dt);
 	void initAnimationData();

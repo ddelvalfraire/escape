@@ -20,8 +20,7 @@ Entity* EntityFactory::createBarrier(sf::IntRect rect)
 
 Entity* EntityFactory::createMapTile(sf::Texture& tex, sf::IntRect& texRect, sf::Vector2f& position, float scalar)
 {
-	auto entity = new Entity(texRect, mWorld, b2_staticBody, false, &tex, position, sf::Color::Transparent, scalar);
-	return entity;
+	return new Entity(texRect, mWorld, b2_staticBody, false, &tex, position, sf::Color::Transparent, scalar);
 }
 
 
