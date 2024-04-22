@@ -7,5 +7,8 @@ class Program
 {
 public:
 	void run();
+
+private:
+	TextureManager mTexManager;
 };
 #endif // !PROGRAM_H
