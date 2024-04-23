@@ -15,13 +15,16 @@ Lever::Lever(sf::Vector2f position, TextureManager& textureManager, b2World& phy
 	else
 		leverTexture = mTextureManager.loadTexture(LEVER_OFF); 
 
-	sf::FloatRect textureRect({ 0, 0, 64, 64 });
+	sf::IntRect textureRect({ 0, 0, 64, 64 });
 
-	sf::FloatRect physicsPosition({position.x, position.y, textureRect.width, textureRect.height});
+	const int x = position.x;
+	const int y = position.y;
+
+	sf::IntRect physicsPosition({x, y, textureRect.width, textureRect.height});
 	
 	mpPhysicsBody = initPhysicsBody(physicsPosition, physicsWorld, b2_staticBody, SCALAR);
-	mpSprite = initSprite(textureRect, true, leverTexture, sf::Color::Red, SCALAR);
+	mpDrawable = initDrawable(textureRect, leverTexture, position, false, SCALAR);
 
-	auto leverSprite = static_cast<sf::Sprite*>(mpSprite);		//create sprite object for lever
+	auto leverSprite = static_cast<sf::Sprite*>(mpDrawable);		//create sprite object for lever
 	leverSprite->setPosition(position);
 }

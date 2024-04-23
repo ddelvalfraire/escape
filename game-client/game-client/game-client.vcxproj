@@ -182,31 +182,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animatable.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Chest.cpp" />
     <ClCompile Include="Emerald.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Lever.cpp" />
-    <ClCompile Include="Lever.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="ResourceContainer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="PlayerView.cpp" />
     <ClCompile Include="Toggle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animatable.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Chest.h" />
     <ClInclude Include="ContactHandler.h" />
     <ClInclude Include="Emerald.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Lever.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="ResourceContainer.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="PlayerView.h" />
     <ClInclude Include="Toggle.h" />
@@ -221,6 +227,13 @@
     <Image Include="Entities\door2.png" />
     <Image Include="Entities\door3.png" />
     <Image Include="Entities\door4.png" />
+    <Image Include="Entities\Gems\1.png" />
+    <Image Include="Entities\Gems\2.png" />
+    <Image Include="Entities\Gems\3.png" />
+    <Image Include="Entities\Gems\4.png" />
+    <Image Include="Entities\Gems\5.png" />
+    <Image Include="Entities\Gems\6.png" />
+    <Image Include="Entities\key.png" />
     <Image Include="Entities\lever1.png" />
     <Image Include="Entities\lever2.png" />
     <Image Include="Fall.png" />

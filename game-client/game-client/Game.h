@@ -7,17 +7,13 @@
 class Game
 {
 public:
-	Game(sf::RenderWindow& window, TextureManager& textureManager);
+	Game(sf::RenderWindow& window);
 	void run();
 
 private:
-	std::vector<Entity*> setUpLevel();
-	void createWorldBoundaries(std::vector<Entity*> &entities);
 	void pollEvents();
 	bool isInProximity(Entity* a, Entity* b);
 
-	b2World mWorld;
-	sf::RenderWindow& mWindow;
-	TextureManager& mTextureManager;
+	ResourceContainer mResourceContainer;
 };
 #endif // !GAME_H

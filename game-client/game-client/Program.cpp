@@ -11,7 +11,7 @@
 void Program::run()
 {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Escape");
-	Game game(window, mTexManager);
+	Game game(window);
 
 	game.run();
 }

@@ -3,7 +3,7 @@
 #include "Player.h"
 
 constexpr auto MOVE_SPEED = 8.0f;
-constexpr auto JUMP_FORCE = 15.0f;
+constexpr auto JUMP_FORCE = 17.0f;
 constexpr auto ACCELERATION = 1.f;
 constexpr auto DECELERATION = 1.f;
 constexpr auto DEFAULT_FRAME_RATE = 0.05F;
@@ -14,6 +14,11 @@ constexpr auto IDLE = "Idle.png";
 constexpr auto RUN = "Run.png";
 constexpr auto JUMP = "Jump.png";
 
+
+Player::Player(sf::Vector2f position, ResourceContainer& resourceContainer)
+	:Player(position, resourceContainer.textureManager(), resourceContainer.world())
+{
+}
 
 /**
  * @brief Construct a new Player:: Player object
@@ -27,25 +32,27 @@ Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& p
 	Animatable(textureManager),
 	mEmeraldCount(0)
 {
-	initAnimationData();
+	loadAnimations();
 	setAnimation(IDLE);
 
-	sf::IntRect _ = mCurrentAnimation->frames[currentFrame]; 
+	sf::IntRect& frame = mCurrentAnimation->frames[mCurrentFrame]; 
+	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->textureKey);
 
 	initEntityFromAnimation(frame, tex, position, physicsWorld, PLAYER_SCALAR);
+}
+
+
+Player::~Player()
+{
 }
 
 /**
  * @brief Loads and creates animation data
  * 
  */
-void Player::initAnimationData()
+void Player::loadAnimations()
 {
-	loadAnimation(FALL, 1, 0.0f);
-	loadAnimation(IDLE, 11, 50.0f);
-	loadAnimation(RUN, 12, 50.0f);
-	loadAnimation(JUMP, 1, 0);
-}
+	sf::Vector2i sizeInPixels(32, 32);
 
 	loadAnimation(FALL, 1, 0.0f, sizeInPixels);
 	loadAnimation(IDLE, 11, DEFAULT_FRAME_RATE, sizeInPixels);
@@ -98,7 +105,6 @@ void Player::update(sf::Time dt)
 	if (mpPhysicsBody->GetLinearVelocity().y == 0.0f)
 		mIsJumping = false;
 
-
 	b2Vec2 velocity = mpPhysicsBody->GetLinearVelocity();
 
 	if (velocity.y > 0)
@@ -117,32 +123,6 @@ void Player::update(sf::Time dt)
 	syncPositions();
 }
 
-/**
- * @brief Retrieves the current animation playing
- * 
- * @return AnimationData& reference to the animation currently playing
- */
-AnimationData& Player::currentAnimation()
-{
-	if (!mCurrentAnimation)
-		throw std::runtime_error("Player does not have animation loaded");
-
-	return *mCurrentAnimation;
-}
-
-/**
- * @brief Changes the current animation being played
- * 
- * @param name filename of the animation to play
- */
-void Player::setAnimation(const std::string& name)
-{
-	if (mAnimations.count(name) == 0)
-		throw std::runtime_error("Animation does not exist in Player");
-	
-
-	mCurrentAnimation = &mAnimations.at(name);
-}
 
 /**
  * @brief mIsInteracting getter
