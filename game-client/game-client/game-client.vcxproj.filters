@@ -75,6 +75,9 @@
     <ClCompile Include="Toggle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Lever.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Toggle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lever.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

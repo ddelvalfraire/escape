@@ -49,7 +49,7 @@ void Level::loadTmxMap()
 	auto emerald = entityFactory.createEmerald({ 500, 250 });
 	mEntities.push_back(emerald);
 
-	auto chest = entityFactory.createChest({ 450, 250 });
+	auto chest = entityFactory.createChest({ 300, 250 });
 	mEntities.push_back(chest);
 
 

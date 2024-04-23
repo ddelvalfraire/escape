@@ -68,8 +68,12 @@ public:
 
 	inline void removeDeletedBodies()
 	{
-		for (auto body : mDeleteList)
-			mWorld.DestroyBody(body);
+		for (auto& entity : mDeleteList)
+		{
+			mWorld.DestroyBody(entity->physicsBody());
+			mEntities.erase(std::remove(mEntities.begin(), mEntities.end(), entity), mEntities.end());
+			delete entity;
+		}
 
 		mDeleteList.clear();
 	}
@@ -98,11 +102,8 @@ private:
 		Player* player = pair.x;
 		Emerald* emerald = pair.y;
 
-		auto body = emerald->physicsBody();
-		mDeleteList.push_back(body);
+		mDeleteList.push_back(emerald);
 		player->collectEmerald();
-		mEntities.erase(std::remove(mEntities.begin(), mEntities.end(), emerald), mEntities.end());
-		delete emerald;
 	}
 
 
@@ -110,7 +111,7 @@ private:
 	b2World& mWorld;
 	std::vector<Entity*>& mEntities;
 	std::vector<Entity*> mInteractables;
-	std::vector<b2Body*> mDeleteList;
+	std::vector<Entity*> mDeleteList;
 };
 
 #endif // !CONTACT_HANDLER_H

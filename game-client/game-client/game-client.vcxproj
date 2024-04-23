@@ -190,6 +190,7 @@
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Lever.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Program.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Lever.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="ResourceContainer.h" />
