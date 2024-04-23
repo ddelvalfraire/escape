@@ -7,27 +7,19 @@
 #include "Entity.h"
 
 constexpr auto DENSITY = 1.0f;
-constexpr auto FRICTION = 1.0;
+constexpr auto FRICTION = 0.3f;
 constexpr auto B2_SF_SCALE = 30.0f;
 
 class Entity
 {
 public:
 	Entity(
-		sf::IntRect rect,
+		sf::FloatRect rect,
 		b2World& physicsWorld,
 		b2BodyType physicsType,
-		sf::Color color = sf::Color::Transparent
-	);
-
-	Entity(
-		sf::IntRect textRect,
-		b2World& physicsWorld,
-		b2BodyType physicsType,
-		bool centerOrigin,
+		bool centerOrigin = false,
 		sf::Texture* texture = nullptr,
-		sf::Vector2f position = { 0.0, 0.0 },
-		sf::Color color = sf::Color::Transparent,
+		sf::Color color = sf::Color::Red,
 		float scalar = 1.0f
 	);
 
@@ -47,7 +39,7 @@ protected:
 	void sprite(sf::Sprite* sprite);
 
 	b2Body* mpPhysicsBody;
-	sf::Drawable* mpDrawable;
+	sf::Drawable* mpSprite;
 };
 
 #endif // !ENTITY_H
