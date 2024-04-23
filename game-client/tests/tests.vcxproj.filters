@@ -3,6 +3,12 @@
   <ItemGroup>
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="TextureManager.test.cpp">
+      <Filter>Unit Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game-client\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

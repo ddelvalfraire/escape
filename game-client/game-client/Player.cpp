@@ -10,7 +10,7 @@ constexpr auto LADDER_SPEED = 3.0f;
 constexpr auto INTERACTION_RANGE = 50.0f;
 
 
-constexpr auto SCALAR = 2.5F;
+constexpr auto PLAYER_SCALAR = 2.5F;
 constexpr auto FALL = "Fall.png";
 constexpr auto IDLE = "Idle.png";
 constexpr auto RUN = "Run.png";
@@ -31,7 +31,8 @@ Player::Player(sf::Vector2f position, ResourceContainer& resourceContainer)
  */
 Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& physicsWorld)
 	:Entity(),
-	Animatable(textureManager)
+	Animatable(textureManager),
+	mEmeraldCount(0)
 {
 	loadAnimations();
 	setAnimation(IDLE);
@@ -39,12 +40,7 @@ Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& p
 	sf::IntRect& frame = mCurrentAnimation->frames[mCurrentFrame]; 
 	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->textureKey);
 
-	const int x = position.x, y = position.y;
-	sf::IntRect physicsRect({x, y}, frame.getSize());
-
-	mpPhysicsBody = initPhysicsBody(physicsRect, physicsWorld, b2_dynamicBody, SCALAR);
-	mpDrawable = initDrawable(frame,tex, position, true, SCALAR);
-
+	initEntityFromAnimation(frame, tex, position, physicsWorld, PLAYER_SCALAR);
 }
 
 
@@ -65,6 +61,8 @@ void Player::loadAnimations()
 	loadAnimation(RUN, 12, 50.0f, sizeInPixels);
 	loadAnimation(JUMP, 1, 0, sizeInPixels);
 }
+
+
 
 /**
  * @brief Updates the current animation based on game state
@@ -139,6 +137,11 @@ void Player::handleKeyInputs()
 	mpPhysicsBody->SetLinearVelocity(velocity);
 }
 
+void Player::collectEmerald()
+{
+	mEmeraldCount++;
+}
+
 /**
  * @brief updates the player based on its current state and then syncs physics with display info
  * 
@@ -171,6 +174,10 @@ bool Player::isInteracting()
 void Player::isInteracting(bool flag)
 {
 	mIsInteracting = flag;
+}
+
+void Player::onInteract(Emerald* interactable)
+{
 }
 
 sf::Vector2f Player::getPosition()

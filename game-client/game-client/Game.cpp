@@ -1,9 +1,10 @@
 #include "Game.h"
-#include "Player.h"
 #include "Background.h"
 #include "Level.h"
 #include "PlayerView.h"
+#include "ContactHandler.h"
 
+const auto PROXIMITY_THRESHOLD = 50.0f;
 /**
  * @brief Construct a new Game:: Game object
  * 
@@ -31,8 +32,35 @@ void Game::pollEvents()
 		}
 	}
 }
-sf::Vector2f convertBox2dToSFML(const b2Vec2& vector, const float& scale) {
-	return sf::Vector2f(vector.x * scale, vector.y * scale);
+void Game::eventHandler(Player* player, std::vector<Entity*>& entities)
+{
+	for (auto entity : entities)
+	{
+		// handle non interactive events first
+		if (Emerald* emerald = dynamic_cast<Emerald*>(entity))
+		{
+		}
+
+
+		if (player->isInteracting() && isInProximity(player, entity))
+		{
+
+		}
+	}
+
+
+}
+
+bool Game::isInProximity(Entity* a, Entity* b)
+{
+	b2DistanceJointDef jDef;
+	jDef.bodyA = a->physicsBody();
+	jDef.bodyB = b->physicsBody();
+	jDef.length = PROXIMITY_THRESHOLD;
+
+	b2DistanceJoint* joint = (b2DistanceJoint*)mResourceContainer.world().CreateJoint(&jDef);
+
+	return joint->GetLength() <= PROXIMITY_THRESHOLD;
 }
 
 /**
@@ -44,11 +72,14 @@ void Game::run()
 	sf::RenderWindow& window = mResourceContainer.window();
 	b2World& world = mResourceContainer.world();
 
+
 	Background background(mResourceContainer);
 	Level level("tiled/1.tmx", { 400, 100 },mResourceContainer);
 	Player* player = level.player();
 	PlayerView view(window, player, level.metaData());
-	Emerald em({ 500, 100 }, mResourceContainer);
+	
+	ContactHandler contactHandler(level.entities(), mResourceContainer.world());
+	world.SetContactListener(&contactHandler);
 
 	sf::Clock clock;
 	while (window.isOpen())
@@ -65,13 +96,15 @@ void Game::run()
 			player->isInteracting(false); 
 		}
 
-		player->update(dt); // updates need to happen after interactions
-
 		background.update(dt);
 	
-		em.update(dt);
+		for (auto& entity : level.entities())
+			entity->update(dt);
 		
 		view.update();
+
+		contactHandler.removeDeletedBodies();
+
 
 		window.clear();
 
@@ -83,9 +116,6 @@ void Game::run()
 		for (auto& entity : level.entities())
 			window.draw(*entity->sprite());
 
-		window.draw(*em.sprite());
-		
-		
 		window.display();
 	}
 }

@@ -28,7 +28,6 @@ protected:
 	void setAnimation(const std::string& name);
 
 	AnimationData& currentAnimation();
-	virtual void update(sf::Time dt) = 0;
 
 private:
 

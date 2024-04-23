@@ -10,12 +10,16 @@ EntityFactory::EntityFactory(b2World & world, sf::RenderWindow & window, Texture
 
 Player* EntityFactory::createPlayer(sf::Vector2f position)
 {
-	return new Player(position, mTextureManager, mWorld);
+	auto player = new Player(position, mTextureManager, mWorld);
+	player->setPhysicsBodyPtr(player);
+	return player;
 }
 
 Emerald* EntityFactory::createEmerald(sf::Vector2f position)
 {
-	return nullptr;
+	auto emerald = new Emerald(position, mTextureManager, mWorld);
+	emerald->setPhysicsBodyPtr(emerald);
+	return emerald;
 }
 
 Entity* EntityFactory::createBarrier(sf::IntRect rect)

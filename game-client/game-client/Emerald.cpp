@@ -4,10 +4,15 @@ const std::string FILE_PATH = "Entities/Gems/";
 const auto GEM_3 = "3.png";
 
 Emerald::Emerald(sf::Vector2f position, ResourceContainer& resourceContainer)
-	:Entity(), mWorld(resourceContainer.world()), Animatable(resourceContainer.textureManager())
+	:Emerald(position, resourceContainer.textureManager(), resourceContainer.world())
+{
+}
+
+Emerald::Emerald(sf::Vector2f position, TextureManager& textureManager, b2World& physicsWorld)
+	:Entity(), mWorld(physicsWorld), Animatable(textureManager) 
 {
 	const auto EMERALD_SCALAR = 2.0F;
-
+	
 	loadAnimations();
 	setAnimation(FILE_PATH + GEM_3);
 
@@ -18,13 +23,15 @@ Emerald::Emerald(sf::Vector2f position, ResourceContainer& resourceContainer)
 	sf::IntRect physicsRect({ x, y }, frame.getSize());
 
 	mpPhysicsBody = initPhysicsBody(physicsRect, mWorld, b2_staticBody, EMERALD_SCALAR, true);
-	mpDrawable = initDrawable(frame, tex, position, true, EMERALD_SCALAR);
+	mpDrawable = initDrawable(frame, tex, position, false, EMERALD_SCALAR);
+
 }
 
 void Emerald::update(sf::Time dt)
 {
 	updateAnimation(dt);
 }
+
 
 void Emerald::loadAnimations()
 {

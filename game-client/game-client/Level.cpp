@@ -22,7 +22,7 @@ Player* Level::player()
 	return mPlayer;
 }
 
-const std::vector<Entity*>& Level::entities()
+std::vector<Entity*>& Level::entities()
 {
 	return mEntities;
 }
@@ -46,7 +46,8 @@ void Level::loadTmxMap()
 	saveMapMetaData(map);
 	parseTilesets(map);
 	parseLayers(map);
-
+	auto emerald = entityFactory.createEmerald({ 500, 250 });
+	mEntities.push_back(emerald);
 
 }
 

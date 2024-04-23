@@ -199,6 +199,7 @@
   <ItemGroup>
     <ClInclude Include="Animatable.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="ContactHandler.h" />
     <ClInclude Include="Emerald.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />

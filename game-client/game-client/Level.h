@@ -28,7 +28,7 @@ public:
 	~Level() = default;
 
 	Player* player();
-	const std::vector<Entity*>& entities();
+	std::vector<Entity*>& entities();
 	TiledMapMetaData metaData();
 	
 private:

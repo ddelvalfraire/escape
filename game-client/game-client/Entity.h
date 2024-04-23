@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <Box2d/Box2d.h>
 
+#include "Entity.h"
+
 constexpr auto DENSITY = 1.0f;
 constexpr auto FRICTION = 1.0;
 constexpr auto B2_SF_SCALE = 30.0f;
@@ -29,16 +31,16 @@ public:
 		float scalar = 1.0f
 	);
 
-	~Entity();
-
+	virtual ~Entity();
+	virtual void update(sf::Time dt);
+	void setPhysicsBodyPtr(Entity* ptr);
 	void syncPositions();
-
 	b2Body* physicsBody();
 	sf::Drawable* sprite();
-	
 
 protected:
 	Entity();
+	void initEntityFromAnimation(sf::IntRect& frame, sf::Texture* texture, sf::Vector2f position, b2World& world, float scalar);
 	b2Body* initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld, b2BodyType physicsType, float scalar, bool isSensor = false);
 	sf::Drawable* initDrawable(const sf::IntRect& textRect, const sf::Texture* texture, const sf::Vector2f& position, bool centerOrigin, float scalar);
 	sf::Drawable* initDrawable(const sf::IntRect& textRect, bool centerOrigin, const sf::Texture* texture, const sf::Vector2f position, sf::Color color, float scalar);

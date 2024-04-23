@@ -1,9 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Entity.h"
+#include "Emerald.h"
 #include "ResourceContainer.h"
 #include "Animatable.h"
+#include "Entity.h"
 
 class Player : public Entity, protected Animatable
 {
@@ -14,11 +15,12 @@ public:
 	~Player();
 
 	void handleKeyInputs();
+	void collectEmerald();
 	void update(sf::Time dt);
 
 	bool isInteracting();
 	void isInteracting(bool flag);
-
+	void onInteract(Emerald* interactable);
 	sf::Vector2f getPosition();
 
 private:
@@ -28,5 +30,6 @@ private:
 	b2World* mWorld;
 	bool mIsJumping;
 	bool mIsInteracting;
+	int mEmeraldCount;
 };
 #endif // !PLAYER_H
