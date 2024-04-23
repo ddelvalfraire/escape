@@ -29,10 +29,11 @@ protected:
 
 	AnimationData& currentAnimation();
 
-private:
 
+
+protected:
+	void updateAnimation(sf::Time dt, sf::Drawable* drawable);
 	virtual void loadAnimations() = 0;
-	virtual void updateAnimation(sf::Time dt) = 0;
 
 protected:
 	float mAccumulator;

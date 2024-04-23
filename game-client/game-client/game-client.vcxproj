@@ -184,6 +184,7 @@
   <ItemGroup>
     <ClCompile Include="Animatable.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Chest.cpp" />
     <ClCompile Include="Emerald.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
@@ -195,10 +196,12 @@
     <ClCompile Include="ResourceContainer.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="PlayerView.cpp" />
+    <ClCompile Include="Toggle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animatable.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Chest.h" />
     <ClInclude Include="ContactHandler.h" />
     <ClInclude Include="Emerald.h" />
     <ClInclude Include="Entity.h" />
@@ -210,6 +213,7 @@
     <ClInclude Include="ResourceContainer.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="PlayerView.h" />
+    <ClInclude Include="Toggle.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="clouds_1.png" />

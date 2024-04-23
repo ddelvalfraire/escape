@@ -6,12 +6,18 @@
 
 #include "Emerald.h"
 #include "Player.h"
+#include "Chest.h"
 
 template<typename T, typename U>
 struct EntityPair
 {
 	T* x;
 	U* y;
+
+	explicit operator bool() const
+	{
+		return x != nullptr && y != nullptr;
+	}
 };
 
 class ContactHandler : public b2ContactListener
@@ -27,12 +33,39 @@ public:
 
 		if (a && b)
 		{
-			auto pair = isBoth<Player, Emerald>(a, b);
-
-			if (pair.x != nullptr && pair.y != nullptr)
-				playerCollectEmerald(pair.x, pair.y);
+			if (auto pair = isBoth<Player, Emerald>(a, b))
+				playerCollectEmerald(pair);
+			else if (auto pair = isBoth<Player, Chest>(a, b))
+				mInteractables.push_back(pair.y);
 		}
 	}
+
+	inline void EndContact(b2Contact* contact) override
+	{
+		auto a = reinterpret_cast<Entity*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+		auto b = reinterpret_cast<Entity*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+		if (a && b)
+		{
+			 if (auto pair = isBoth<Player, Chest>(a, b))
+				 mInteractables.erase(std::remove(mInteractables.begin(), mInteractables.end(), pair.y), mInteractables.end());
+		}
+	}
+
+	inline void handleInteractions(Player* player)
+	{
+		if (!player->isInteracting())
+			return;
+
+		for (auto& entity : mInteractables)
+		{
+			if (Chest* chest = dynamic_cast<Chest*>(entity))
+				chest->setOn(true);
+		}
+
+		player->isInteracting(false);
+	}
+
 	inline void removeDeletedBodies()
 	{
 		for (auto body : mDeleteList)
@@ -60,8 +93,11 @@ private:
 		return { nullptr, nullptr };
 	}
 
-	inline void playerCollectEmerald(Player* player, Emerald* emerald) 
+	inline void playerCollectEmerald(EntityPair<Player, Emerald>& pair) 
 	{
+		Player* player = pair.x;
+		Emerald* emerald = pair.y;
+
 		auto body = emerald->physicsBody();
 		mDeleteList.push_back(body);
 		player->collectEmerald();
@@ -69,8 +105,11 @@ private:
 		delete emerald;
 	}
 
+
+
 	b2World& mWorld;
 	std::vector<Entity*>& mEntities;
+	std::vector<Entity*> mInteractables;
 	std::vector<b2Body*> mDeleteList;
 };
 

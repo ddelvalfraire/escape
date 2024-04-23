@@ -4,7 +4,6 @@
 #include "PlayerView.h"
 #include "ContactHandler.h"
 
-const auto PROXIMITY_THRESHOLD = 50.0f;
 /**
  * @brief Construct a new Game:: Game object
  * 
@@ -32,37 +31,6 @@ void Game::pollEvents()
 		}
 	}
 }
-void Game::eventHandler(Player* player, std::vector<Entity*>& entities)
-{
-	for (auto entity : entities)
-	{
-		// handle non interactive events first
-		if (Emerald* emerald = dynamic_cast<Emerald*>(entity))
-		{
-		}
-
-
-		if (player->isInteracting() && isInProximity(player, entity))
-		{
-
-		}
-	}
-
-
-}
-
-bool Game::isInProximity(Entity* a, Entity* b)
-{
-	b2DistanceJointDef jDef;
-	jDef.bodyA = a->physicsBody();
-	jDef.bodyB = b->physicsBody();
-	jDef.length = PROXIMITY_THRESHOLD;
-
-	b2DistanceJoint* joint = (b2DistanceJoint*)mResourceContainer.world().CreateJoint(&jDef);
-
-	return joint->GetLength() <= PROXIMITY_THRESHOLD;
-}
-
 /**
  * @brief Entry point for the game
  * 
@@ -72,7 +40,6 @@ void Game::run()
 	sf::RenderWindow& window = mResourceContainer.window();
 	b2World& world = mResourceContainer.world();
 
-
 	Background background(mResourceContainer);
 	Level level("tiled/1.tmx", { 400, 100 },mResourceContainer);
 	Player* player = level.player();
@@ -80,6 +47,9 @@ void Game::run()
 	
 	ContactHandler contactHandler(level.entities(), mResourceContainer.world());
 	world.SetContactListener(&contactHandler);
+
+	float elapsedTime = 0.0f;
+	const float PHYSICS_TIME_STEP = 1.0f / 75.0f;
 
 	sf::Clock clock;
 	while (window.isOpen())
@@ -90,11 +60,15 @@ void Game::run()
 
 		player->handleKeyInputs();
 
-		world.Step(1.0f / 60.0f, 8, 3);
-
-		if (player->isInteracting()) {
-			player->isInteracting(false); 
+		elapsedTime += dt.asSeconds();
+		while (elapsedTime >= PHYSICS_TIME_STEP)
+		{
+			world.Step(PHYSICS_TIME_STEP, 8, 3);
+			elapsedTime -= PHYSICS_TIME_STEP;
 		}
+		
+
+		contactHandler.handleInteractions(player);
 
 		background.update(dt);
 	
@@ -104,7 +78,6 @@ void Game::run()
 		view.update();
 
 		contactHandler.removeDeletedBodies();
-
 
 		window.clear();
 

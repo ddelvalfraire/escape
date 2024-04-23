@@ -54,6 +54,34 @@ AnimationData& Animatable::currentAnimation()
 	return *mCurrentAnimation;
 }
 
+void Animatable::updateAnimation(sf::Time dt, sf::Drawable* drawable)
+{
+	auto sprite = static_cast<sf::Sprite*>(drawable);
+
+	mAccumulator += dt.asSeconds();
+
+	if (mAccumulator >= mCurrentAnimation->frameRate)
+	{
+		mCurrentFrame = (mCurrentFrame + 1) % mCurrentAnimation->frameCount;
+
+		if (mCurrentFrame >= mCurrentAnimation->frameCount)
+			mCurrentFrame = 0;
+
+		mAccumulator = 0.0f;
+	}
+
+	if (!sprite)
+		throw std::runtime_error("Player does not have a sprite loaded");
+
+	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->name);
+	if (sprite->getTexture() != tex) // do not update if texture is the same
+		sprite->setTexture(*tex);
+
+	sf::IntRect frame = mCurrentAnimation->frames[mCurrentFrame];
+
+	sprite->setTextureRect(frame);
+}
+
 
 /**
  * @brief Changes the current animation being played

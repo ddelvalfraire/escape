@@ -1,6 +1,6 @@
 #include "ResourceContainer.h"
 
-const b2Vec2 GRAVITY_RATE(0.0f, 25.0f);
+const b2Vec2 GRAVITY_RATE(0.0f, 30.0f);
 
 ResourceContainer::ResourceContainer(sf::RenderWindow& window)  : mWindow(window), mWorld(GRAVITY_RATE), mTextureManager()
 {

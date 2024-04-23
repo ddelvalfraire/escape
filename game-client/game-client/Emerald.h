@@ -18,9 +18,6 @@ public:
 private:
 	// Inherited via Animatable
 	void loadAnimations() override;
-	void updateAnimation(sf::Time dt) override;
-
-	b2World& mWorld;
 };
 
 

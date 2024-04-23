@@ -12,7 +12,6 @@ public:
 
 private:
 	void pollEvents();
-	void eventHandler(Player* player, std::vector<Entity*>& entities);
 	bool isInProximity(Entity* a, Entity* b);
 
 	ResourceContainer mResourceContainer;

@@ -24,7 +24,6 @@ public:
 	sf::Vector2f getPosition();
 
 private:
-	void updateAnimation(sf::Time dt) override;
 	void loadAnimations() override;
 
 	b2World* mWorld;

@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Emerald.h"
+#include "Chest.h"
 #include "ResourceContainer.h"
 
 class EntityFactory
@@ -13,6 +14,8 @@ public:
 
 	Player* createPlayer(sf::Vector2f position);
 	Emerald* createEmerald(sf::Vector2f position);
+	Chest* createChest(sf::Vector2f position);
+
 	Entity* createBarrier(sf::IntRect rect);
 	Entity* createMapTile(sf::Texture& tex, sf::IntRect& texRect, sf::Vector2f& position, float scalar);
 private:

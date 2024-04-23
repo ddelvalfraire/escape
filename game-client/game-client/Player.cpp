@@ -6,11 +6,9 @@ constexpr auto MOVE_SPEED = 8.0f;
 constexpr auto JUMP_FORCE = 17.0f;
 constexpr auto ACCELERATION = 1.f;
 constexpr auto DECELERATION = 1.f;
-constexpr auto LADDER_SPEED = 3.0f;
-constexpr auto INTERACTION_RANGE = 50.0f;
-
-
+constexpr auto DEFAULT_FRAME_RATE = 0.05F;
 constexpr auto PLAYER_SCALAR = 2.5F;
+
 constexpr auto FALL = "Fall.png";
 constexpr auto IDLE = "Idle.png";
 constexpr auto RUN = "Run.png";
@@ -57,54 +55,9 @@ void Player::loadAnimations()
 	sf::Vector2i sizeInPixels(32, 32);
 
 	loadAnimation(FALL, 1, 0.0f, sizeInPixels);
-	loadAnimation(IDLE, 11, 50.0f, sizeInPixels);
-	loadAnimation(RUN, 12, 50.0f, sizeInPixels);
-	loadAnimation(JUMP, 1, 0, sizeInPixels);
-}
-
-
-
-/**
- * @brief Updates the current animation based on game state
- * 
- * @param dt delta time
- */
-void Player::updateAnimation(sf::Time dt)
-{
-	auto sprite = static_cast<sf::Sprite*>(mpDrawable);
-	b2Vec2 velocity = mpPhysicsBody->GetLinearVelocity();
-
-	if (velocity.y > 0)
-		setAnimation(FALL);
-	else if (velocity.y < 0)
-		setAnimation(JUMP);
-	else if (velocity.x > 0)
-		setAnimation(RUN);
-	else if (velocity.x < 0)
-		setAnimation(RUN);
-	else
-		setAnimation(IDLE);
-
-
-	mAccumulator += dt.asMilliseconds();
-
-	if (mAccumulator >= mCurrentAnimation->frameRate)
-	{
-		mCurrentFrame = (mCurrentFrame + 1) % mCurrentAnimation->frameCount;
-		mAccumulator = 0.0f;
-	}
-	
-	if (!sprite)
-		throw std::runtime_error("Player does not have a sprite loaded");
-
-	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->name);
-	if (sprite->getTexture() != tex) // do not update if texture is the same
-		sprite->setTexture(*tex);
-
-	sf::IntRect frame = mCurrentAnimation->frames[mCurrentFrame];
-
-	sprite->setTextureRect(frame);
-
+	loadAnimation(IDLE, 11, DEFAULT_FRAME_RATE, sizeInPixels);
+	loadAnimation(RUN, 12, DEFAULT_FRAME_RATE, sizeInPixels);
+	loadAnimation(JUMP, 1, 0.0F, sizeInPixels);
 }
 
 /**
@@ -152,7 +105,21 @@ void Player::update(sf::Time dt)
 	if (mpPhysicsBody->GetLinearVelocity().y == 0.0f)
 		mIsJumping = false;
 
-	updateAnimation(dt);
+
+	b2Vec2 velocity = mpPhysicsBody->GetLinearVelocity();
+
+	if (velocity.y > 0)
+		setAnimation(FALL);
+	else if (velocity.y < 0)
+		setAnimation(JUMP);
+	else if (velocity.x > 0)
+		setAnimation(RUN);
+	else if (velocity.x < 0)
+		setAnimation(RUN);
+	else
+		setAnimation(IDLE);
+
+	updateAnimation(dt, mpDrawable);
 
 	syncPositions();
 }

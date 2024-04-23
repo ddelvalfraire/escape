@@ -22,6 +22,13 @@ Emerald* EntityFactory::createEmerald(sf::Vector2f position)
 	return emerald;
 }
 
+Chest* EntityFactory::createChest(sf::Vector2f position)
+{
+	auto chest = new Chest(position, mTextureManager, mWorld);
+	chest->setPhysicsBodyPtr(chest);
+	return chest;
+}
+
 Entity* EntityFactory::createBarrier(sf::IntRect rect)
 {
 	return new Entity(rect, mWorld, b2_staticBody);
