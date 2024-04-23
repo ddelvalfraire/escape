@@ -105,7 +105,6 @@ void Player::update(sf::Time dt)
 	if (mpPhysicsBody->GetLinearVelocity().y == 0.0f)
 		mIsJumping = false;
 
-
 	b2Vec2 velocity = mpPhysicsBody->GetLinearVelocity();
 
 	if (velocity.y > 0)
