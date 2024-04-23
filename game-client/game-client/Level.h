@@ -17,7 +17,9 @@ public:
 	Level(const std::string &tmxFile, sf::RenderWindow &window);
 	~Level() = default;
 
-	const std::vector<sf::Sprite*>& sprites();
+	Player* player();
+	std::vector<Entity*>& entities();
+	TiledMapMetaData metaData();
 	
 private:
 	void loadTmxMap();

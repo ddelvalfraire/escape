@@ -1,7 +1,8 @@
 #include "Game.h"
-#include "Player.h"
 #include "Background.h"
 #include "Level.h"
+#include "PlayerView.h"
+#include "ContactHandler.h"
 #include "Lever.h"
 
 const b2Vec2 GRAVITY_RATE( 0.0f, 25.0f );
@@ -67,8 +68,6 @@ void Game::pollEvents()
 		}
 	}
 }
-
-
 /**
  * @brief Entry point for the game
  * 
@@ -76,11 +75,16 @@ void Game::pollEvents()
 void Game::run()
 {
 
-	std::vector<Entity*> entities = setUpLevel();
+	Background background(mResourceContainer);
+	Level level("tiled/1.tmx", { 400, 100 },mResourceContainer);
+	Player* player = level.player();
+	PlayerView view(window, player, level.metaData());
+	
+	ContactHandler contactHandler(level.entities(), mResourceContainer.world());
+	world.SetContactListener(&contactHandler);
 
-	Player* player = static_cast<Player*>(entities[0]);
-	Background background(mWindow, mTextureManager);
-	Level level("tiled/1.tmx", mWindow);
+	float elapsedTime = 0.0f;
+	const float PHYSICS_TIME_STEP = 1.0f / 75.0f;
 
 	sf::Clock clock;
 	while (mWindow.isOpen())
@@ -91,16 +95,28 @@ void Game::run()
 
 		player->handleKeyInputs();
 
-		mWorld.Step(1.0f / 60.0f, 8, 3);
-
-		if (player->isInteracting()) {
-			player->isInteracting(false); 
+		elapsedTime += dt.asSeconds();
+		while (elapsedTime >= PHYSICS_TIME_STEP)
+		{
+			world.Step(PHYSICS_TIME_STEP, 8, 3);
+			elapsedTime -= PHYSICS_TIME_STEP;
 		}
+		
 
-		player->update(dt); // updates need to happen after interactions
+		contactHandler.handleInteractions(player);
+
 		background.update(dt);
+	
+		for (auto& entity : level.entities())
+			entity->update(dt);
+		
+		view.update();
 
-		mWindow.clear();
+		contactHandler.removeDeletedBodies();
+
+		window.clear();
+
+		window.setView(view);
 
 		for (auto& sprite : background.getSprites())
 			mWindow.draw(*sprite);
@@ -111,9 +127,7 @@ void Game::run()
 		for (auto entity : entities)
 			mWindow.draw(*entity->sprite());
 
-		
-		
-		mWindow.display();
+		window.display();
 	}
 }
 

@@ -1,9 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "TextureManager.h"
-#include <Box2D/Box2D.h>
-#include "Entity.h"
+#include "ResourceContainer.h"
+#include "Player.h"
 
 class Game
 {
@@ -15,6 +14,7 @@ private:
 	std::vector<Entity*> setUpLevel();
 	void createWorldBoundaries(std::vector<Entity*> &entities);
 	void pollEvents();
+	bool isInProximity(Entity* a, Entity* b);
 
 	b2World mWorld;
 	sf::RenderWindow& mWindow;

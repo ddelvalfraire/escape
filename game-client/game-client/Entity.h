@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <Box2d/Box2d.h>
 
+#include "Entity.h"
+
 constexpr auto DENSITY = 1.0f;
 constexpr auto FRICTION = 0.3f;
 constexpr auto B2_SF_SCALE = 30.0f;
@@ -20,17 +22,20 @@ public:
 		sf::Color color = sf::Color::Red,
 		float scalar = 1.0f
 	);
-	~Entity();
 
+	virtual ~Entity();
+	virtual void update(sf::Time dt);
+	void setPhysicsBodyPtr(Entity* ptr);
 	void syncPositions();
-
 	b2Body* physicsBody();
 	sf::Drawable* sprite();
 
 protected:
 	Entity();
-	b2Body* initPhysicsBody(sf::FloatRect& rect, b2World& physicsWorld, b2BodyType physicsType, float scalar = 1);
-	sf::Drawable* initSprite(sf::FloatRect& rect, bool centerOrigin, sf::Texture* texture, sf::Color color = sf::Color::Red , float scalar = 1);
+	void initEntityFromAnimation(sf::IntRect& frame, sf::Texture* texture, sf::Vector2f position, b2World& world, float scalar);
+	b2Body* initPhysicsBody(sf::IntRect& physicsRect, b2World& physicsWorld, b2BodyType physicsType, float scalar, bool isSensor = false);
+	sf::Drawable* initDrawable(const sf::IntRect& textRect, const sf::Texture* texture, const sf::Vector2f& position, bool centerOrigin, float scalar);
+	sf::Drawable* initDrawable(const sf::IntRect& textRect, bool centerOrigin, const sf::Texture* texture, const sf::Vector2f position, sf::Color color, float scalar);
 	void sprite(sf::Sprite* sprite);
 
 	b2Body* mpPhysicsBody;

@@ -19,7 +19,17 @@ Level::Level(const std::string& tmxFile, sf::RenderWindow& window)
  */
 const std::vector<sf::Sprite*>& Level::sprites()
 {
-	return mSprites;
+	return mPlayer;
+}
+
+std::vector<Entity*>& Level::entities()
+{
+	return mEntities;
+}
+
+TiledMapMetaData Level::metaData()
+{
+	return mMapMetaData;
 }
 
 /**
@@ -34,6 +44,14 @@ void Level::loadTmxMap()
 	
 	parseTilesets(map);
 	parseLayers(map);
+	auto emerald = entityFactory.createEmerald({ 500, 250 });
+	mEntities.push_back(emerald);
+
+	auto chest = entityFactory.createChest({ 450, 250 });
+	mEntities.push_back(chest);
+
+
+
 }
 
 /**

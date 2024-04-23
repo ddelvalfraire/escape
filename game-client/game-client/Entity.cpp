@@ -4,6 +4,18 @@ Entity::Entity()
 {
 }
 
+void Entity::setPhysicsBodyPtr(Entity* ptr)
+{
+	mpPhysicsBody->GetUserData().pointer = reinterpret_cast<uintptr_t>(ptr);
+}
+
+Entity::Entity(sf::IntRect rect, b2World& physicsWorld, b2BodyType physicsType, sf::Color color)
+	: Entity(rect, physicsWorld, physicsType, false, nullptr, { 0,0 }, color)
+{
+	mpPhysicsBody = initPhysicsBody(rect, physicsWorld, physicsType, 1);
+	mpDrawable = initDrawable(rect, false, nullptr, {0,0}, color, 1); // depends on physics body for data, must be called second
+}
+
 /**
  * @brief Construct a new Entity:: Entity object
  * 
@@ -25,10 +37,21 @@ Entity::Entity(
 	float scalar
 )
 {
-	mpPhysicsBody = initPhysicsBody(rect, physicsWorld, physicsType, scalar);
-	mpSprite = initSprite(rect,centerOrigin, texture, color); // depends on physics body for data, must be called second
+	sf::Vector2i intPos = static_cast<sf::Vector2i>(position);
+	sf::IntRect physicsRect(intPos, textRect.getSize());
+	mpPhysicsBody = initPhysicsBody(physicsRect, physicsWorld, physicsType, scalar);
+	mpDrawable = initDrawable(textRect, centerOrigin, texture, position, color, scalar); // depends on physics body for data, must be called second
+
 }
 
+void Entity::initEntityFromAnimation(sf::IntRect& frame, sf::Texture* texture, sf::Vector2f position, b2World& world, float scalar )
+{
+	const int x = position.x, y = position.y;
+	sf::IntRect physicsRect({ x, y }, frame.getSize());
+
+	mpPhysicsBody = initPhysicsBody(physicsRect, world, b2_dynamicBody, scalar);
+	mpDrawable = initDrawable(frame, texture, position, true, scalar);
+}
 /**
  * @brief Destroy the Entity:: Entity object
  * 
@@ -39,6 +62,12 @@ Entity::~Entity()
 
 	// delete mpPhysicsBody; world owns b2Body objects
 }
+
+void Entity::update(sf::Time dt)
+{
+}
+
+
 
 void Entity::syncPositions()
 {
