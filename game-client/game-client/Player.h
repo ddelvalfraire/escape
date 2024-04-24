@@ -12,8 +12,9 @@ public:
 	Player(sf::Vector2f position, ResourceContainer& resourceContainer);
 	Player(sf::Vector2f position, TextureManager& textureManager, b2World& physicsWorld);
 
-	~Player();
+	~Player() = default;
 
+	void disableKeyInputs();
 	void handleKeyInputs();
 	void collectEmerald();
 	void update(sf::Time dt);

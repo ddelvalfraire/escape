@@ -3,11 +3,11 @@
 #include "Player.h"
 
 constexpr auto MOVE_SPEED = 8.0f;
-constexpr auto JUMP_FORCE = 17.0f;
+constexpr auto JUMP_FORCE = 12.0f;
 constexpr auto ACCELERATION = 1.f;
 constexpr auto DECELERATION = 1.f;
 constexpr auto DEFAULT_FRAME_RATE = 0.05F;
-constexpr auto PLAYER_SCALAR = 2.5F;
+constexpr auto PLAYER_SCALAR = 1.2F;
 
 constexpr auto FALL = "Fall.png";
 constexpr auto IDLE = "Idle.png";
@@ -43,8 +43,9 @@ Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& p
 }
 
 
-Player::~Player()
+void Player::disableKeyInputs()
 {
+	mKeyInputEnabled = false;
 }
 
 /**

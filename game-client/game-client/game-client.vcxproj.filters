@@ -28,6 +28,9 @@
     <Filter Include="Resource Files\Entities\Gems">
       <UniqueIdentifier>{8dc5c7a7-9b26-4bce-9bad-788a57daf265}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Banners">
+      <UniqueIdentifier>{ff4e6b85-5509-4adb-bf70-71ef7b3fa551}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,6 +87,12 @@
     <ClCompile Include="Toggle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StartScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program.h">
@@ -132,6 +141,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Lever.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverlay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -249,6 +264,12 @@
     </Image>
     <Image Include="Entities\Gems\6.png">
       <Filter>Resource Files\Entities\Gems</Filter>
+    </Image>
+    <Image Include="Banners\Winner.png">
+      <Filter>Resource Files\Banners</Filter>
+    </Image>
+    <Image Include="Banners\Loser.png">
+      <Filter>Resource Files\Banners</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
