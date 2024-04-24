@@ -11,7 +11,7 @@
  * @param textureManager reference to the texture manager
  */
 Game::Game(sf::RenderWindow& window)
-	:mResourceContainer(window) {}
+	:mResourceContainer(window), mStatus(InGame) {}
 
 
 /**
@@ -31,22 +31,36 @@ void Game::pollEvents()
 		}
 	}
 }
-/**
- * @brief game win procedure
- * 
- */
-void Game::handleWin()
+void Game::handlePostGame()
 {
-	// win loginc
+	auto& window = mResourceContainer.window();
+	auto& texManager = mResourceContainer.textureManager();
+
+	std::string filePath = "Banners/";
+	sf::IntRect rect;
+
+	if (mStatus == Loss)
+	{
+		filePath += "Loser.png";
+		rect = sf::IntRect(0, 0, 1024, 362);
+	}
+	
+	else if (mStatus == Win)
+	{
+		filePath += "Winner.png";
+		rect = sf::IntRect(0, 0, 1024, 325);
+	}
+		
+
+	sf::Texture* tex;
+
+	if (texManager.hasTexture(filePath))
+		tex = texManager.getTexture(filePath);
+	else
+		tex = texManager.loadTexture(filePath);
+
 }
 
-/**
- * @brief game loss procedure
- * 
- */
-void Game::handleLoss()
-{
-}
 /**
  * @brief Entry point for the game
  * 
@@ -83,7 +97,6 @@ void Game::run()
 			elapsedTime -= PHYSICS_TIME_STEP;
 		}
 		
-
 		contactHandler.handleInteractions(player);
 
 		background.update(dt);

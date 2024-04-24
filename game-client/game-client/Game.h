@@ -4,6 +4,7 @@
 #include "ResourceContainer.h"
 #include "Player.h"
 
+
 enum GameStatus
 {
 	InGame,
@@ -18,8 +19,7 @@ public:
 
 private:
 	void pollEvents();
-	void handleWin();
-	void handleLoss();
+	void handlePostGame();
 
 	float mElapsedTime;
 	GameStatus mStatus;

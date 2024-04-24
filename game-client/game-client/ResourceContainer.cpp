@@ -1,6 +1,6 @@
 #include "ResourceContainer.h"
 
-const b2Vec2 GRAVITY_RATE(0.0f, 30.0f);
+const b2Vec2 GRAVITY_RATE(0.0f, 9.8f);
 
 /**
  * @brief Construct a new Resource Container:: Resource Container object
