@@ -6,7 +6,7 @@
 class TextureManagerTest : public::testing::Test
 {
 protected:
-	const std::string texture = "../game-client/Entities/door1.png";
+	const std::string texture = "test.png";
 	TextureManager texManager;
 };
 

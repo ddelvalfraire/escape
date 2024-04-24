@@ -3,6 +3,7 @@
 
 #include "ResourceContainer.h"
 #include "Player.h"
+#include "MenuAction.h"
 
 
 enum GameStatus
@@ -15,10 +16,9 @@ class Game
 {
 public:
 	Game(sf::RenderWindow& window);
-	void run();
+	MenuAction run();
 
 private:
-	void pollEvents();
 	void handlePostGame();
 
 	float mElapsedTime;

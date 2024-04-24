@@ -31,6 +31,9 @@
     <Filter Include="Resource Files\Banners">
       <UniqueIdentifier>{ff4e6b85-5509-4adb-bf70-71ef7b3fa551}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\MenuAssets">
+      <UniqueIdentifier>{4cb395b3-db86-4238-96b7-ee9cf3ea0c4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -147,6 +150,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameOverlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -271,6 +277,15 @@
     <Image Include="Banners\Loser.png">
       <Filter>Resource Files\Banners</Filter>
     </Image>
+    <Image Include="Background102.png">
+      <Filter>Resource Files\MenuAssets</Filter>
+    </Image>
+    <Image Include="UnderButton.png">
+      <Filter>Resource Files\MenuAssets</Filter>
+    </Image>
+    <Image Include="Summer1.png">
+      <Filter>Resource Files\MenuAssets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Tiled\1.tmx">
@@ -288,5 +303,10 @@
     <None Include="Tiled\Tileset.tsx">
       <Filter>Resource Files\Tiled</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Chatlong-zrro3.ttf">
+      <Filter>Resource Files\MenuAssets</Filter>
+    </Font>
   </ItemGroup>
 </Project>

@@ -17,7 +17,11 @@ public:
 	void disableKeyInputs();
 	void handleKeyInputs();
 	void collectEmerald();
+	void updateChestCount();
 	void update(sf::Time dt);
+
+	int chestsOpened();
+	int emeraldsCollected();
 
 	bool isInteracting();
 	void isInteracting(bool flag);
@@ -32,5 +36,6 @@ private:
 	bool mIsInteracting;
 	bool mKeyInputEnabled;
 	int mEmeraldCount;
+	int mChestCount;
 };
 #endif // !PLAYER_H

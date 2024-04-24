@@ -3,11 +3,11 @@
 #include "Player.h"
 
 constexpr auto MOVE_SPEED = 8.0f;
-constexpr auto JUMP_FORCE = 12.0f;
-constexpr auto ACCELERATION = 1.f;
-constexpr auto DECELERATION = 1.f;
-constexpr auto DEFAULT_FRAME_RATE = 0.05F;
-constexpr auto PLAYER_SCALAR = 1.2F;
+constexpr auto JUMP_FORCE = 10.0f;
+constexpr auto ACCELERATION = 0.8f;
+constexpr auto DECELERATION = 0.8f;
+constexpr auto DEFAULT_FRAME_RATE = 0.07F;
+constexpr auto PLAYER_SCALAR = 1.1F;
 
 constexpr auto FALL = "Fall.png";
 constexpr auto IDLE = "Idle.png";
@@ -99,7 +99,12 @@ void Player::handleKeyInputs()
 
 void Player::collectEmerald()
 {
-	mEmeraldCount++;
+	++mEmeraldCount;
+}
+
+void Player::updateChestCount()
+{
+	++mChestCount;
 }
 
 /**
@@ -128,6 +133,16 @@ void Player::update(sf::Time dt)
 	updateAnimation(dt, mpDrawable);
 
 	syncPositions();
+}
+
+int Player::chestsOpened()
+{
+	return mChestCount;
+}
+
+int Player::emeraldsCollected()
+{
+	return mEmeraldCount;
 }
 
 

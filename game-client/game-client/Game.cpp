@@ -11,26 +11,8 @@
  * @param textureManager reference to the texture manager
  */
 Game::Game(sf::RenderWindow& window)
-	:mResourceContainer(window), mStatus(InGame) {}
+	:mResourceContainer(window), mStatus(InGame), mElapsedTime(0) {}
 
-
-/**
- * @brief Polls for window events
- * 
- */
-void Game::pollEvents()
-{
-	sf::RenderWindow& window = mResourceContainer.window();
-
-	sf::Event event;
-	while (window.pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-		{
-			window.close();
-		}
-	}
-}
 void Game::handlePostGame()
 {
 	auto& window = mResourceContainer.window();
@@ -65,7 +47,7 @@ void Game::handlePostGame()
  * @brief Entry point for the game
  * 
  */
-void Game::run()
+MenuAction Game::run()
 {
 	sf::RenderWindow& window = mResourceContainer.window();
 	b2World& world = mResourceContainer.world();
@@ -80,13 +62,23 @@ void Game::run()
 
 	float elapsedTime = 0.0f;
 	const float PHYSICS_TIME_STEP = 1.0f / 75.0f;
-
+	const int CHEST_GOAL = 3, EMERALD_GOAL = 9;
 	sf::Clock clock;
 	while (window.isOpen())
 	{
 		sf::Time dt = clock.restart();
 		
-		pollEvents();
+		if (player->chestsOpened() == CHEST_GOAL && player->emeraldsCollected() == EMERALD_GOAL)
+			return InMenu;
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				return Exit;
+			}
+		}
 
 		player->handleKeyInputs();
 
@@ -106,7 +98,6 @@ void Game::run()
 		
 		view.update();
 
-		contactHandler.removeDeletedBodies();
 
 		window.clear();
 
@@ -119,7 +110,11 @@ void Game::run()
 			window.draw(*entity->sprite());
 
 		window.display();
+
+		contactHandler.removeDeletedBodies();
 	}
+
+	return InMenu;
 }
 
 

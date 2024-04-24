@@ -18,8 +18,6 @@ Animatable::Animatable(TextureManager& textureManager)
  */
 Animatable::~Animatable()
 {
-	for (auto& data : mAnimations)
-		mTextureManager.deleteTexture(data.second.textureKey);
 }
 
 /**
@@ -89,6 +87,10 @@ void Animatable::updateAnimation(sf::Time dt, sf::Drawable* drawable)
 		throw std::runtime_error("Player does not have a sprite loaded");
 
 	sf::Texture* tex = mTextureManager.getTexture(mCurrentAnimation->name);
+
+	if (!tex)
+		return;
+
 	if (sprite->getTexture() != tex) // do not update if texture is the same
 		sprite->setTexture(*tex);
 

@@ -7,7 +7,7 @@
 #include "Entity.h"
 
 constexpr auto DENSITY = 1.0f;
-constexpr auto FRICTION = 1.0;
+constexpr auto FRICTION = 0.1;
 constexpr auto B2_SF_SCALE = 30.0f;
 
 class Entity

@@ -60,7 +60,15 @@ public:
 		for (auto& entity : mInteractables)
 		{
 			if (Chest* chest = dynamic_cast<Chest*>(entity))
-				chest->setOn(true);
+			{
+				if (!chest->isOn()) 
+				{
+					chest->setOn(true);
+					player->updateChestCount();
+				}
+				
+			}
+				
 		}
 
 		player->isInteracting(false);

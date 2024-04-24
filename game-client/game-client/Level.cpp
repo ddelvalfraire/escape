@@ -58,7 +58,7 @@ TiledMapMetaData Level::metaData()
 
 /**
  * @brief routine for tmx file loading based on mTmxFile
- * 
+ *
  */
 void Level::loadTmxMap()
 {
@@ -66,17 +66,44 @@ void Level::loadTmxMap()
 
 	if (!map.load(mTmxFile))
 		throw std::runtime_error("Could not load tmx file");
-	
+
 	saveMapMetaData(map);
 	parseTilesets(map);
 	parseLayers(map);
+
 	auto emerald = entityFactory.createEmerald({ 500, 250 });
 	mEntities.push_back(emerald);
+	//x ,y
+	auto emerald1 = entityFactory.createEmerald({ 800,  525 });
+	mEntities.push_back(emerald1);
 
-	auto chest = entityFactory.createChest({ 300, 250 });
+	auto emerald2 = entityFactory.createEmerald({ 1700,  320 });
+	mEntities.push_back(emerald2);
+
+	auto emerald3 = entityFactory.createEmerald({ 1200,  725 });
+	mEntities.push_back(emerald3);
+
+	auto emerald4 = entityFactory.createEmerald({ 1800,  1000 });
+	mEntities.push_back(emerald4);
+
+	auto emerald6 = entityFactory.createEmerald({ 200,  825 });
+	mEntities.push_back(emerald6);
+
+	auto emerald7 = entityFactory.createEmerald({ 1200,  550 });
+	mEntities.push_back(emerald7);
+
+	auto emerald8 = entityFactory.createEmerald({ 700, 100 });
+	mEntities.push_back(emerald8);
+
+
+	auto chest = entityFactory.createChest({ 200, 115 });
 	mEntities.push_back(chest);
 
+	auto chest2 = entityFactory.createChest({ 1020, 56 });
+	mEntities.push_back(chest2);
 
+	auto chest3 = entityFactory.createChest({ 660, 1015 });
+	mEntities.push_back(chest3);
 
 }
 
