@@ -32,6 +32,22 @@ void Game::pollEvents()
 	}
 }
 /**
+ * @brief game win procedure
+ * 
+ */
+void Game::handleWin()
+{
+	// win loginc
+}
+
+/**
+ * @brief game loss procedure
+ * 
+ */
+void Game::handleLoss()
+{
+}
+/**
  * @brief Entry point for the game
  * 
  */

@@ -1,14 +1,31 @@
 #include "Entity.h"
 
+/**
+ * @brief Construct a new Entity:: Entity object
+ * 
+ */
 Entity::Entity() 
 {
 }
 
+/**
+ * @brief sets the user data pointer of a physics body
+ * 
+ * @param ptr 
+ */
 void Entity::setPhysicsBodyPtr(Entity* ptr)
 {
 	mpPhysicsBody->GetUserData().pointer = reinterpret_cast<uintptr_t>(ptr);
 }
 
+/**
+ * @brief Construct a new Entity:: Entity object
+ * 
+ * @param rect size and position of the drawable texture.
+ * @param physicsWorld reference to the physics world
+ * @param physicsType type of physics object to create
+ * @param color color for the default shape 
+ */
 Entity::Entity(sf::IntRect rect, b2World& physicsWorld, b2BodyType physicsType, sf::Color color)
 	: Entity(rect, physicsWorld, physicsType, false, nullptr, { 0,0 }, color)
 {
@@ -46,6 +63,15 @@ Entity::Entity(
 
 }
 
+/**
+ * @brief creates an entity from a frame animation and texture
+ * 
+ * @param frame beginning animation frame
+ * @param texture animation texture
+ * @param position unscaled x, y coordinates to spawn the entity
+ * @param world physics world reference
+ * @param scalar physics and drawable scalar
+ */
 void Entity::initEntityFromAnimation(sf::IntRect& frame, sf::Texture* texture, sf::Vector2f position, b2World& world, float scalar )
 {
 	const int x = position.x, y = position.y;
@@ -65,12 +91,20 @@ Entity::~Entity()
 	// delete mpPhysicsBody; world owns b2Body objects
 }
 
+/**
+ * @brief default update function
+ * 
+ * @param dt elapsed time
+ */
 void Entity::update(sf::Time dt)
 {
 }
 
 
-
+/**
+ * @brief syncs the position of a physics body and a transformable(usually sprite)
+ * 
+ */
 void Entity::syncPositions()
 {
 	auto sprite = static_cast<sf::RectangleShape*>(mpDrawable);

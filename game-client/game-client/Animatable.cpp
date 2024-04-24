@@ -1,5 +1,10 @@
 #include "Animatable.h"
 
+/**
+ * @brief Construct a new Animatable:: Animatable object
+ * 
+ * @param textureManager Texturemanager reference
+ */
 Animatable::Animatable(TextureManager& textureManager)
 	:mTextureManager(textureManager),
 	mCurrentAnimation(nullptr),
@@ -7,6 +12,10 @@ Animatable::Animatable(TextureManager& textureManager)
 	mCurrentFrame(0)
 {}
 
+/**
+ * @brief Destroy the Animatable:: Animatable object
+ * 
+ */
 Animatable::~Animatable()
 {
 	for (auto& data : mAnimations)
@@ -54,6 +63,12 @@ AnimationData& Animatable::currentAnimation()
 	return *mCurrentAnimation;
 }
 
+/**
+ * @brief updates the frame state of the currently playing animation
+ * 
+ * @param dt elapsed time
+ * @param drawable the drawable to update
+ */
 void Animatable::updateAnimation(sf::Time dt, sf::Drawable* drawable)
 {
 	auto sprite = static_cast<sf::Sprite*>(drawable);
@@ -67,7 +82,7 @@ void Animatable::updateAnimation(sf::Time dt, sf::Drawable* drawable)
 		if (mCurrentFrame >= mCurrentAnimation->frameCount)
 			mCurrentFrame = 0;
 
-		mAccumulator = 0.0f;
+		mAccumulator -= mCurrentAnimation->frameRate;
 	}
 
 	if (!sprite)

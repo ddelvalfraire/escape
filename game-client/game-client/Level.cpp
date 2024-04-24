@@ -1,10 +1,25 @@
 #include "Level.h"
 
-
+/**
+ * @brief Construct a new Level:: Level object
+ * 
+ * @param tmxFile tmx filepath
+ * @param playerPosition playable character spawn position
+ * @param resourceContainer resource container reference
+ */
 Level::Level(const std::string& tmxFile, sf::Vector2f playerPosition, ResourceContainer& resourceContainer)
 	:Level(tmxFile,playerPosition, resourceContainer.window(), resourceContainer.world(), resourceContainer.textureManager())
 {}
 
+/**
+ * @brief Construct a new Level:: Level object
+ * 
+ * @param tmxFile tmx filepath
+ * @param playerPosition playable character spawn position
+ * @param window main window reference
+ * @param world physics world reference
+ * @param textureManager texture manager reference
+ */
 Level::Level(const std::string & tmxFile,sf::Vector2f playerPosition, sf::RenderWindow & window, b2World& world, TextureManager & textureManager)
 	:mTmxFile(tmxFile), mWindow(window), mWorld(world), playerInitialPosition(playerPosition), entityFactory(world, window, textureManager) 
 {
@@ -16,12 +31,21 @@ Level::Level(const std::string & tmxFile,sf::Vector2f playerPosition, sf::Render
 
 }
 
-
+/**
+ * @brief Returns the address of the playable character
+ * 
+ * @return Player* playable character
+ */
 Player* Level::player()
 {
 	return mPlayer;
 }
 
+/**
+ * @brief 
+ * 
+ * @return std::vector<Entity*>& 
+ */
 std::vector<Entity*>& Level::entities()
 {
 	return mEntities;
@@ -56,6 +80,11 @@ void Level::loadTmxMap()
 
 }
 
+/**
+ * @brief stores the tiledmap meta data
+ * 
+ * @param map current map being loaded
+ */
 void Level::saveMapMetaData(const tmx::Map& map)
 {
 	mMapMetaData.mapScaleFactor = calculateScalar(map);
@@ -133,6 +162,10 @@ void Level::parseLayers(const tmx::Map &map)
 	}
 }
 
+/**
+ * @brief Creates world boundaries for the player
+ * 
+ */
 void Level::createWorldBoundaries()
 {
 	const int WINDOW_WIDTH = mWindow.getSize().x;

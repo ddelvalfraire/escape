@@ -4,6 +4,12 @@
 #include "ResourceContainer.h"
 #include "Player.h"
 
+enum GameStatus
+{
+	InGame,
+	Loss,
+	Win
+};
 class Game
 {
 public:
@@ -12,8 +18,11 @@ public:
 
 private:
 	void pollEvents();
-	bool isInProximity(Entity* a, Entity* b);
+	void handleWin();
+	void handleLoss();
 
+	float mElapsedTime;
+	GameStatus mStatus;
 	ResourceContainer mResourceContainer;
 };
 #endif // !GAME_H

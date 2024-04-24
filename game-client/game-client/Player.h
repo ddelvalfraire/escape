@@ -29,6 +29,7 @@ private:
 	b2World* mWorld;
 	bool mIsJumping;
 	bool mIsInteracting;
+	bool mKeyInputEnabled;
 	int mEmeraldCount;
 };
 #endif // !PLAYER_H

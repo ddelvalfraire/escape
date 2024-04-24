@@ -30,7 +30,8 @@ Player::Player(sf::Vector2f position, ResourceContainer& resourceContainer)
 Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& physicsWorld)
 	:Entity(),
 	Animatable(textureManager),
-	mEmeraldCount(0)
+	mEmeraldCount(0),
+	mKeyInputEnabled(true)
 {
 	loadAnimations();
 	setAnimation(IDLE);
@@ -69,7 +70,12 @@ void Player::handleKeyInputs()
 	if (!mpPhysicsBody)
 		throw std::runtime_error("Physics body uninitialized");
 
+
+	if (!mKeyInputEnabled)
+		return;
+
 	b2Vec2 velocity = mpPhysicsBody->GetLinearVelocity();
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		velocity.x = b2Max(velocity.x - ACCELERATION, -MOVE_SPEED);

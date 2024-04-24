@@ -3,11 +3,24 @@
 const std::string FILE_PATH = "Entities/Gems/";
 const auto GEM_3 = "3.png";
 
+/**
+ * @brief Construct a new Emerald:: Emerald object
+ * 
+ * @param position unscaled x, y coordinate to place the emerald
+ * @param resourceContainer ResourceContainer reference
+ */
 Emerald::Emerald(sf::Vector2f position, ResourceContainer& resourceContainer)
 	:Emerald(position, resourceContainer.textureManager(), resourceContainer.world())
 {
 }
 
+/**
+ * @brief Construct a new Emerald:: Emerald object
+ * 
+ * @param position 
+ * @param textureManager 
+ * @param physicsWorld 
+ */
 Emerald::Emerald(sf::Vector2f position, TextureManager& textureManager, b2World& physicsWorld)
 	:Entity(), Animatable(textureManager) 
 {
