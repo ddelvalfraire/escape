@@ -3,6 +3,9 @@
 - Emily Tran Lab 1
 - Elizabeth Hale Lab 1
 
+# Video
+[Requested PA9 Video on youtube](https://youtu.be/D_LLraS7P7g)
+
  # Dependencies
  We used microsoft vcpkg as our package manager. 
  The following are the dependencies needed to run the program.
