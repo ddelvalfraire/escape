@@ -25,7 +25,6 @@ Level::Level(const std::string & tmxFile,sf::Vector2f playerPosition, sf::Render
 {
 
 	loadTmxMap();
-	createWorldBoundaries();
 	mPlayer = entityFactory.createPlayer(playerPosition);
 	mEntities.push_back(mPlayer);
 

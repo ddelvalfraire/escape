@@ -1,13 +1,24 @@
 #include "TextureManager.h"
 
+#include <iostream>
+#include <filesystem>
+#include <direct.h>
+#include <fstream>
+
+
+
 /**
  * @brief deletes all of the allocated textures in the texture map
  *
  */
 TextureManager::~TextureManager()
 {
-	for (auto& pair : mTextures)
+	for (auto& pair : mTextures) 
+	{
 		delete pair.second;
+		pair.second = nullptr;
+	}
+		
 }
 
 /**
@@ -17,6 +28,7 @@ TextureManager::~TextureManager()
  */
 sf::Texture* TextureManager::loadTexture(const std::string &fileName)
 {
+
 	auto tex = new sf::Texture;
 	mTextures.emplace(fileName, tex);
 

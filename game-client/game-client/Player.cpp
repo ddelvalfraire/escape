@@ -31,6 +31,7 @@ Player::Player(sf::Vector2f position, TextureManager& textureManager, b2World& p
 	:Entity(),
 	Animatable(textureManager),
 	mEmeraldCount(0),
+	mChestCount(0),
 	mKeyInputEnabled(true)
 {
 	loadAnimations();

@@ -11,11 +11,12 @@
  */
 void Program::run()
 {
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Escape");
+	sf::RenderWindow window;
 	Game game(window);
 	StartScreen menu(window);
 
 	MenuAction state = InMenu;
+
 	while (state != Exit)
 	{
 		if (state == InMenu)

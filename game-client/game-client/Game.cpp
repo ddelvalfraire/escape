@@ -18,6 +18,8 @@ void Game::handlePostGame()
 	auto& window = mResourceContainer.window();
 	auto& texManager = mResourceContainer.textureManager();
 
+	window.create(sf::VideoMode(1920, 1080), "Escape");
+
 	std::string filePath = "Banners/";
 	sf::IntRect rect;
 
@@ -52,6 +54,7 @@ MenuAction Game::run()
 	sf::RenderWindow& window = mResourceContainer.window();
 	b2World& world = mResourceContainer.world();
 
+	window.create(sf::VideoMode(1920, 1080), "Escape");
 	Background background(mResourceContainer);
 	Level level("tiled/1.tmx", { 400, 100 },mResourceContainer);
 	Player* player = level.player();
@@ -62,7 +65,7 @@ MenuAction Game::run()
 
 	float elapsedTime = 0.0f;
 	const float PHYSICS_TIME_STEP = 1.0f / 75.0f;
-	const int CHEST_GOAL = 3, EMERALD_GOAL = 9;
+	const int CHEST_GOAL = 3, EMERALD_GOAL = 8;
 	sf::Clock clock;
 	while (window.isOpen())
 	{
@@ -76,6 +79,7 @@ MenuAction Game::run()
 		{
 			if (event.type == sf::Event::Closed)
 			{
+				window.close();
 				return Exit;
 			}
 		}
@@ -114,6 +118,7 @@ MenuAction Game::run()
 		contactHandler.removeDeletedBodies();
 	}
 
+	window.close();
 	return InMenu;
 }
 

@@ -5,7 +5,7 @@ StartScreen::StartScreen(sf::RenderWindow& window) :window(window) {}
 
 MenuAction StartScreen::displayMenu()
 {
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "Escape the Game"); //creates the window
+	window.create(sf::VideoMode(1280, 720), "Escape the Game"); //creates the window
 
 	sf::Texture COW; //creates texture
 	COW.loadFromFile("Summer1.png");
@@ -125,6 +125,7 @@ MenuAction StartScreen::displayMenu()
 						howtoplay.setFillColor(sf::Color::Transparent);
 						Rules.setFillColor(sf::Color::Blue);
 						Player2.setFillColor(sf::Color::Blue);
+						window.close();
 						return StartGame;
 					}
 					else if (button.getGlobalBounds().contains(map.x, map.y)) //if mouse is over the button location
@@ -165,4 +166,5 @@ MenuAction StartScreen::displayMenu()
 		}
 
 	}
+
 }

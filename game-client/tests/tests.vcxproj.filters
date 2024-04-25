@@ -25,7 +25,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="test.png">
+    <Image Include="test_texture.png">
       <Filter>Source Files</Filter>
     </Image>
   </ItemGroup>

@@ -29,8 +29,6 @@ protected:
 
 	AnimationData& currentAnimation();
 
-
-
 protected:
 	void updateAnimation(sf::Time dt, sf::Drawable* drawable);
 	virtual void loadAnimations() = 0;
